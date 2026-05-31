@@ -295,7 +295,7 @@ const Visualizer = (() => {
             ${renderAgentBadge(root.to)}
             <span class="chain-root-slug" title="${escapeHtml(root.id)}">${escapeHtml(slugToLabel(root.id))}</span>
             <span class="tag ${meta.tagClass}" style="flex-shrink:0">${escapeHtml(meta.label)}</span>
-            <span class="chain-root-date">${escapeHtml(root.date)}</span>
+            <span class="chain-root-date">${escapeHtml(safeText(root.date, 'unknown'))}</span>
           </div>
           <div class="chain-delegations${delegationsOpen ? ' open' : ''}" id="delegations-${escapeHtml(rootId)}">
             ${delegationHtml}
