@@ -151,7 +151,10 @@ const Visualizer = (() => {
   }
 
   function renderAgentBadge(agent) {
-    const cls = AGENT_CLASS[agent] || 'agent-claude';
+    const cls = AGENT_CLASS[agent];
+    if (!cls) {
+      return `<span class="tag tag-gray">${escapeHtml(agent || 'Unknown')}</span>`;
+    }
     return `<span class="agent-badge ${cls}">${escapeHtml(agent)}</span>`;
   }
 

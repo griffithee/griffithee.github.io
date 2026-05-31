@@ -93,6 +93,18 @@ def safe_handoff_filename(fname):
     return fname
 
 
+def is_safe_file_within(base_dir, path):
+    """Return True when path resolves to a regular file inside base_dir."""
+    try:
+        base_real = os.path.realpath(base_dir)
+        path_real = os.path.realpath(path)
+        if os.path.commonpath([base_real, path_real]) != base_real:
+            return False
+        return os.path.isfile(path_real)
+    except OSError:
+        return False
+
+
 def parse_filename(fname):
     """Extract date, from_agent, to_agent from a handoff filename."""
     safe_name = safe_handoff_filename(fname)
@@ -122,7 +134,11 @@ def get_description(handoffs_dir, fname):
         os.path.join(handoffs_dir, safe_name),
         os.path.join(handoffs_dir, "archive", safe_name),
     ]:
-        if not os.path.exists(search_path):
+        safe_path = is_safe_file_within(handoffs_dir, search_path)
+        if os.path.lexists(search_path) and not safe_path:
+            warn(f"Skipping unsafe handoff file {search_path!r}")
+            continue
+        if not safe_path:
             continue
         try:
             with open(search_path, encoding="utf-8-sig") as f:
