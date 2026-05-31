@@ -582,7 +582,7 @@
     bullets.push({
       x: player.x,
       y: player.y - player.h * 0.6,
-      w: 4,
+      w: 6,
       h: 14,
       vy: -820,
       owner: 'player',
@@ -1082,6 +1082,18 @@
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.fillRect(-10, 8, 4, 7);
     ctx.fillRect(6, 8, 4, 7);
+
+    // Aim guide — faint vertical line from barrel tip to top of canvas
+    if (player.cooldown <= 0 && bullets.length < 3) {
+      ctx.strokeStyle = 'rgba(88, 166, 255, 0.18)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 6]);
+      ctx.beginPath();
+      ctx.moveTo(0, -18);
+      ctx.lineTo(0, -(player.y - 4));
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
     ctx.restore();
   }
 
