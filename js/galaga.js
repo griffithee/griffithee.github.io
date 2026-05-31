@@ -6,6 +6,16 @@
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    const fallback = document.createElement('p');
+    fallback.className = 'game-fallback';
+    fallback.style.marginTop = 'var(--space-4)';
+    fallback.style.color = 'var(--text-muted)';
+    fallback.style.fontFamily = 'var(--font-mono)';
+    fallback.textContent = 'This browser cannot create a 2D canvas context, so Arcade Run cannot start.';
+    canvas.replaceWith(fallback);
+    return;
+  }
   const hud = {
     score: document.getElementById('hud-score'),
     lives: document.getElementById('hud-lives'),
@@ -194,8 +204,8 @@
   }
 
   function loadBestScore() {
-    if (!window.localStorage) return 0;
     try {
+      if (!('localStorage' in window)) return 0;
       const raw = window.localStorage.getItem(bestScoreKey);
       const value = raw === null ? 0 : Number.parseInt(raw, 10);
       return Number.isFinite(value) && value > 0 ? value : 0;
@@ -205,8 +215,8 @@
   }
 
   function saveBestScore(score) {
-    if (!window.localStorage) return;
     try {
+      if (!('localStorage' in window)) return;
       window.localStorage.setItem(bestScoreKey, String(Math.max(0, Math.floor(score))));
     } catch {
       // Ignore storage errors. The game still works without persistence.
@@ -319,7 +329,19 @@
   function ensureAudio() {
     if (!state.soundOn) return;
     if (!audioCtx) {
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const AudioCtor = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtor) {
+        state.soundOn = false;
+        hud.soundToggle.textContent = 'Sound off';
+        return;
+      }
+      try {
+        audioCtx = new AudioCtor();
+      } catch {
+        state.soundOn = false;
+        hud.soundToggle.textContent = 'Sound off';
+        return;
+      }
     }
     if (audioCtx.state === 'suspended') {
       audioCtx.resume().catch(() => {});
