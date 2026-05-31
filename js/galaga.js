@@ -247,6 +247,11 @@
         return;
       }
 
+      if (key === 'r') {
+        resetRun(true);
+        return;
+      }
+
       if (['arrowleft', 'arrowright', ' ', 'spacebar', 'a', 'd', 'r'].includes(key)) {
         ensureStartedFromInput();
       }
@@ -254,7 +259,6 @@
       if (key === 'arrowleft' || key === 'a') input.left = true;
       if (key === 'arrowright' || key === 'd') input.right = true;
       if (key === ' ' || key === 'spacebar') input.fire = true;
-      if (key === 'r') resetRun(true);
     });
 
     window.addEventListener('keyup', (event) => {
