@@ -144,6 +144,7 @@
 
     try {
       var url = new URL(String(value), window.location.href);
+      if (url.origin !== window.location.origin) return '';
       var allowed = ['http:', 'https:'];
       if (allowed.indexOf(url.protocol) === -1) return '';
       return escHtml(url.href);

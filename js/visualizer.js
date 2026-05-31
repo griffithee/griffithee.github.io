@@ -80,6 +80,11 @@ const Visualizer = (() => {
     return `${value.slice(0, maxLength - 3)}...`;
   }
 
+  function safeText(value, fallback) {
+    const text = String(value ?? '').trim();
+    return text || fallback || '';
+  }
+
   /* Word-wrap text into at most 2 lines, breaking at word boundaries. */
   function wrapText(text, chars1, chars2) {
     const value = String(text || '');
@@ -124,7 +129,7 @@ const Visualizer = (() => {
   }
 
   function getStatusMeta(status) {
-    return STATUS_META[status] || { label: status, dotClass: 'closed', tagClass: 'tag-gray' };
+    return STATUS_META[status] || { label: safeText(status, 'unknown'), dotClass: 'closed', tagClass: 'tag-gray' };
   }
 
   function getStatusColor(status) {
@@ -176,24 +181,28 @@ const Visualizer = (() => {
 
   function renderDetailPanel(node, isRoot) {
     const delegationCount = isRoot ? (node.delegations || []).length : null;
+    const description = safeText(node.description, 'No description available');
+    const from = safeText(node.from, 'Unknown');
+    const to = safeText(node.to, 'Unknown');
+    const registered = formatDate(node.registered) || 'unknown';
 
     return `
       <div class="detail-title">${escapeHtml(node.id)}</div>
       <div class="detail-grid">
         <span class="detail-label">description</span>
-        <span class="detail-value">${escapeHtml(node.description)}</span>
+        <span class="detail-value">${escapeHtml(description)}</span>
 
         <span class="detail-label">from</span>
-        <span class="detail-value">${renderAgentBadge(node.from)}</span>
+        <span class="detail-value">${renderAgentBadge(from)}</span>
 
         <span class="detail-label">to</span>
-        <span class="detail-value">${renderAgentBadge(node.to)}</span>
+        <span class="detail-value">${renderAgentBadge(to)}</span>
 
         <span class="detail-label">status</span>
         <span class="detail-value">${renderStatusBadge(node.status)}</span>
 
         <span class="detail-label">registered</span>
-        <span class="detail-value">${escapeHtml(formatDate(node.registered))}</span>
+        <span class="detail-value">${escapeHtml(registered)}</span>
 
         ${delegationCount !== null ? `
         <span class="detail-label">delegations</span>
@@ -438,6 +447,8 @@ const Visualizer = (() => {
 
       const root = lane.root;
       const rootSelected = isSelectedNode(root.id, 'root');
+      const rootFrom = safeText(root.from, 'Unknown');
+      const rootTo = safeText(root.to, 'Unknown');
       const routeColor = getAgentColor(root.from);
       const statusColor = getStatusColor(root.status);
       const delegations = lane.delegations;
@@ -474,7 +485,7 @@ const Visualizer = (() => {
             kind: 'delegation', selected,
             routeColor: getAgentColor(delegation.from),
             statusColor: getStatusColor(delegation.status),
-            routeLabel: `${delegation.from} -> ${delegation.to}`,
+            routeLabel: `${safeText(delegation.from, 'Unknown')} -> ${safeText(delegation.to, 'Unknown')}`,
             description: delegation.description,
             footerText: formatDate(delegation.registered),
             nodeType: 'delegation', nodeId: delegation.id,
@@ -492,15 +503,15 @@ const Visualizer = (() => {
         });
 
       return `
-        <g transform="translate(${laneX}, ${laneY})" role="group"
-           aria-label="${escapeHtml(root.from)} to ${escapeHtml(root.to)} delegation chain">
+          <g transform="translate(${laneX}, ${laneY})" role="group"
+           aria-label="${escapeHtml(rootFrom)} to ${escapeHtml(rootTo)} delegation chain">
           ${connectors}
           ${renderSvgNode(root, {
             x: lane.rootX - lane.rootWidth / 2, y: lane.rootY,
             width: lane.rootWidth, height: lane.cfg.rootHeight,
             kind: 'root', selected: rootSelected,
             routeColor, statusColor,
-            routeLabel: `${root.from} -> ${root.to}`,
+            routeLabel: `${rootFrom} -> ${rootTo}`,
             description: root.description,
             footerText: `${formatDate(root.date)}${delegations.length > 0 ? ` · ${delegations.length} delegation${delegations.length > 1 ? 's' : ''}` : ' · no delegations'}`,
             nodeType: 'root', nodeId: root.id,
