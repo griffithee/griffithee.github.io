@@ -67,7 +67,7 @@ const Visualizer = (() => {
   }
 
   function formatDate(isoStr) {
-    if (!isoStr) return '';
+    if (typeof isoStr !== 'string' || !isoStr.trim()) return '';
     const d = new Date(isoStr);
     if (Number.isNaN(d.getTime())) return '';
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -81,7 +81,11 @@ const Visualizer = (() => {
   }
 
   function safeText(value, fallback) {
-    const text = String(value ?? '').trim();
+    if (typeof value !== 'string' && typeof value !== 'number') {
+      return fallback || '';
+    }
+
+    const text = String(value).trim();
     return text || fallback || '';
   }
 
@@ -154,7 +158,8 @@ const Visualizer = (() => {
   }
 
   function getStatusMeta(status) {
-    return STATUS_META[status] || { label: safeText(status, 'unknown'), dotClass: 'closed', tagClass: 'tag-gray' };
+    const value = typeof status === 'string' ? status : '';
+    return STATUS_META[value] || { label: safeText(value, 'unknown'), dotClass: 'closed', tagClass: 'tag-gray' };
   }
 
   function getStatusColor(status) {

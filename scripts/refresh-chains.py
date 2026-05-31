@@ -63,6 +63,13 @@ def warn(message):
     print(f"WARNING: {message}", file=sys.stderr)
 
 
+def safe_text(value, fallback=""):
+    if not isinstance(value, str):
+        return fallback
+    text = value.strip()
+    return text if text else fallback
+
+
 def load_json_file(path, label):
     try:
         with open(path, encoding="utf-8") as f:
@@ -249,8 +256,8 @@ def main():
                 "from": del_parsed["from"],
                 "to": del_parsed["to"],
                 "description": del_desc,
-                "status": chain_data.get("status", "delegated"),
-                "registered": chain_data.get("registered", ""),
+                "status": safe_text(chain_data.get("status"), "delegated"),
+                "registered": safe_text(chain_data.get("registered"), ""),
             })
 
         roots_out.append({
@@ -259,8 +266,8 @@ def main():
             "from": parsed["from"],
             "to": parsed["to"],
             "description": desc,
-            "status": root_data.get("status", "dispatched"),
-            "registered": root_data.get("registered", ""),
+            "status": safe_text(root_data.get("status"), "dispatched"),
+            "registered": safe_text(root_data.get("registered"), ""),
             "delegations": delegations,
         })
 

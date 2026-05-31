@@ -141,7 +141,11 @@
   }
 
   function safeText(value, fallback) {
-    var text = String(value == null ? '' : value).trim();
+    if (typeof value !== 'string' && typeof value !== 'number') {
+      return fallback || '';
+    }
+
+    var text = String(value).trim();
     return text || fallback || '';
   }
 
@@ -157,7 +161,10 @@
     if (!value) return '';
 
     try {
-      var url = new URL(String(value), window.location.href);
+      var raw = String(value).trim();
+      if (!raw) return '';
+
+      var url = new URL(raw, window.location.href);
       if (url.origin !== window.location.origin) return '';
       var allowed = ['http:', 'https:'];
       if (allowed.indexOf(url.protocol) === -1) return '';
