@@ -49,6 +49,36 @@
       "status": "closed",
       "registered": "2026-05-31T11:26:33Z",
       "delegations": []
+    },
+    {
+      "id": "2026-05-31-from-grok-to-claude-code-galaga-phase-1-backup",
+      "date": "2026-05-31",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "Backup / Escalation — Galaga Phase 1 (if Codex is Limited)",
+      "status": "dispatched",
+      "registered": "2026-05-31T13:26:34Z",
+      "delegations": []
+    },
+    {
+      "id": "2026-05-31-from-grok-to-claude-code-personal-website-phase-3-qa-escalation",
+      "date": "2026-05-31",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "Escalation — Personal Website Phase 3 QA (Codex Limit Block)",
+      "status": "closed",
+      "registered": "2026-05-31T13:26:34Z",
+      "delegations": []
+    },
+    {
+      "id": "2026-05-31-from-grok-to-claude-code-galaga-phase-1-activation",
+      "date": "2026-05-31",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "Activation: Take Over Galaga Phase 1 from Codex (Limit Escalation)",
+      "status": "dispatched",
+      "registered": "2026-05-31T13:28:47Z",
+      "delegations": []
     }
   ],
   "meta": {
