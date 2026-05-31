@@ -442,6 +442,10 @@
       hud.overlay.classList.add('visible');
     }
     updateHud();
+    if (fromUser && !rafId) {
+      lastTime = performance.now();
+      rafId = requestAnimationFrame(loop);
+    }
   }
 
   function showOverlay(title, body, actionText) {
@@ -480,10 +484,10 @@
 
     const rows = Math.min(3 + Math.floor((wave - 1) / 2), 5);
     const cols = Math.min(4 + Math.floor((wave - 1) / 2), 7);
-    const baseY = Math.max(100, view.h * 0.16);
-    const usableW = Math.max(260, view.w - 140);
-    const cellW = clamp(usableW / Math.max(4, cols - 0.25), 66, 94);
-    const cellH = clamp(view.h / 9.4, 52, 70);
+    const baseY = view.h * 0.15;
+    const usableW = Math.max(view.w * 0.6, view.w - 140);
+    const cellW = clamp(usableW / Math.max(4, cols - 0.25), view.w * 0.1, 94);
+    const cellH = clamp(view.h / 9.4, view.h * 0.09, 70);
     const totalW = (cols - 1) * cellW;
 
     formation = {
@@ -1207,10 +1211,12 @@
   function loop(now) {
     const dt = Math.min(0.033, (now - lastTime) / 1000 || 0);
     lastTime = now;
-    if (!state.paused) {
-      update(dt);
+    try {
+      if (!state.paused) update(dt);
+      draw();
+    } catch (err) {
+      console.error('[galaga] loop error:', err);
     }
-    draw();
     rafId = requestAnimationFrame(loop);
   }
 
