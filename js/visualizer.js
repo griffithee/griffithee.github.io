@@ -746,8 +746,18 @@ const Visualizer = (() => {
       delegationsMap = {};
 
       allRoots.forEach((root) => {
+        if (!root || typeof root !== 'object' || typeof root.id !== 'string') {
+          return;
+        }
+
         rootsMap[root.id] = root;
-        (root.delegations || []).forEach((delegation) => {
+        const delegations = Array.isArray(root.delegations) ? root.delegations : [];
+
+        delegations.forEach((delegation) => {
+          if (!delegation || typeof delegation !== 'object' || typeof delegation.id !== 'string') {
+            return;
+          }
+
           delegationsMap[delegation.id] = delegation;
         });
       });
