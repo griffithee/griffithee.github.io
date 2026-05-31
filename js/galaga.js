@@ -59,7 +59,6 @@
 
   let player = createPlayer();
   let formation = createFormation();
-  let enemyShotClock = 1.1;
   let spawnDiveClock = 2.2;
   let lastTime = performance.now();
   let rafId = 0;
@@ -410,7 +409,6 @@
     player.x = view.midX || 480;
     player.y = (view.h || 720) - 64;
     formation = createFormation();
-    enemyShotClock = 1.0;
     spawnDiveClock = 1.7;
     seedStars();
     enemies.length = 0;
@@ -529,7 +527,6 @@
     state.waveMessage = `Wave ${wave}`;
     state.waveMessageTimer = 1.2;
     state.waveTransition = 0;
-    enemyShotClock = rand(0.7, 1.4);
     spawnDiveClock = rand(1.6, 2.6);
   }
 
@@ -683,7 +680,6 @@
     updateBullets(dt);
     updateParticles(dt);
     resolveCollisions();
-    updateWaveProgress(dt);
 
     if (state.scoreFlash > 0) state.scoreFlash -= dt;
     if (state.shake > 0) state.shake = Math.max(0, state.shake - dt * 18);
@@ -831,19 +827,6 @@
       }
     });
 
-    enemyShotClock -= dt;
-    if (enemyShotClock <= 0) {
-      const shooters = enemies.filter((enemy) => !enemy.dead && enemy.state === 'formation');
-      if (shooters.length > 0) {
-        const sorted = shooters.sort((a, b) => b.row - a.row || Math.random() - 0.5);
-        const pick = sorted[0];
-        if (pick) {
-          fireEnemyBullet(pick, pick.type === 'ace' ? 22 : 0);
-        }
-      }
-      enemyShotClock = rand(0.65, 1.4) * clamp(1.04 - state.wave * 0.04, 0.55, 1.04);
-    }
-
     spawnDiveClock -= dt;
     const maxConcurrentDives = clamp(1 + Math.floor((state.wave - 1) / 2), 1, 3);
     const activeDives = enemies.filter((enemy) => !enemy.dead && enemy.state === 'diving').length;
@@ -955,14 +938,6 @@
 
   function remainingEnemies() {
     return enemies.filter((enemy) => !enemy.dead).length;
-  }
-
-  function updateWaveProgress(dt) {
-    if (state.gameOver || state.paused) return;
-    const alive = enemies.filter((enemy) => !enemy.dead);
-    const activeFormation = alive.some((enemy) => enemy.state === 'formation' || enemy.state === 'entering' || enemy.state === 'returning');
-    if (alive.length === 0) return;
-    if (!activeFormation) return;
   }
 
   function clearWave() {
