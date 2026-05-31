@@ -49,13 +49,13 @@
 
     var filterHtml = tags.map(function (tag) {
       return '<button class="filter-btn' + (tag === 'all' ? ' active' : '') +
-        '" data-filter="' + escapeHtml(tag) + '">' + escapeHtml(FILTER_LABELS[tag] || tag) + '</button>';
+        '" data-filter="' + escHtml(tag) + '">' + escHtml(FILTER_LABELS[tag] || tag) + '</button>';
     }).join('');
 
     var cardsHtml = projects.map(renderCard).join('');
 
     var metaLine = updatedDate
-      ? '<p style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);margin-top:var(--space-4);">data/projects.json · last updated ' + escapeHtml(updatedDate) + '</p>'
+      ? '<p style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);margin-top:var(--space-4);">data/projects.json · last updated ' + escHtml(updatedDate) + '</p>'
       : '';
     var emptyState = projects.length === 0
       ? '<div style="padding:var(--space-4);color:var(--text-muted);font-family:var(--font-mono);font-size:0.8rem;border:1px dashed var(--border);border-radius:var(--radius-md);">No project entries available.</div>'
@@ -106,29 +106,39 @@
   function renderCard(p) {
     p = p && typeof p === 'object' ? p : {};
 
-    var agents = Array.isArray(p.agents) ? p.agents : [];
+    var name = safeText(p.name, 'Untitled project');
+    var desc = safeText(p.desc, 'No description available');
+    var status = safeText(p.status, 'unknown');
+    var agents = Array.isArray(p.agents)
+      ? p.agents.filter(function (a) { return typeof a === 'string' && a.trim(); })
+      : [];
     var tags = Array.isArray(p.tags) ? p.tags.filter(function (t) { return typeof t === 'string'; }) : [];
-    var agentBadges = agents.map(function (a) {
-      return '<span class="agent-badge ' + (AGENT_CLASS[a] || 'agent-claude') + '">' + escapeHtml(a) + '</span>';
-    }).join('');
+    var agentBadges = agents.length > 0 ? agents.map(function (a) {
+      return '<span class="agent-badge ' + (AGENT_CLASS[a] || 'agent-claude') + '">' + escHtml(a) + '</span>';
+    }).join('') : '<span class="tag tag-gray">agents unknown</span>';
 
-    var statusClass = STATUS_TAG_CLASS[p.status] || 'tag-gray';
-    var isDashed = p.status === 'scaffolded';
+    var statusClass = STATUS_TAG_CLASS[status] || 'tag-gray';
+    var isDashed = status === 'scaffolded';
     var href = safeHref(p.link);
     var detailsHtml = href
       ? '<a href="' + href + '" style="font-size:0.75rem;color:var(--text-muted);margin-left:auto;">details →</a>'
       : '<span style="font-size:0.75rem;color:var(--text-muted);margin-left:auto;">details unavailable</span>';
 
-    return '<article class="card" data-tags="' + escapeHtml(tags.join(',')) + '"' +
+    return '<article class="card" data-tags="' + escHtml(tags.join(',')) + '"' +
       (isDashed ? ' style="border-style:dashed;opacity:0.7;"' : '') + '>' +
       '<div class="card-header">' +
-      '<div class="card-title">' + escHtml(p.name) + '</div>' +
-      '<span class="tag ' + statusClass + '">' + escHtml(p.status) + '</span>' +
+      '<div class="card-title">' + escHtml(name) + '</div>' +
+      '<span class="tag ' + statusClass + '">' + escHtml(status) + '</span>' +
       '</div>' +
-      '<p class="card-desc">' + escHtml(p.desc) + '</p>' +
+      '<p class="card-desc">' + escHtml(desc) + '</p>' +
       '<div class="card-meta">' + agentBadges +
       detailsHtml +
       '</div></article>';
+  }
+
+  function safeText(value, fallback) {
+    var text = String(value == null ? '' : value).trim();
+    return text || fallback || '';
   }
 
   function escHtml(str) {
