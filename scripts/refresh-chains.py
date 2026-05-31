@@ -54,6 +54,25 @@ META = {
 }
 
 
+def warn(message):
+    print(f"WARNING: {message}", file=sys.stderr)
+
+
+def load_json_file(path, label):
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"ERROR: {label} not found at {path}", file=sys.stderr)
+        return None
+    except json.JSONDecodeError as exc:
+        print(f"ERROR: Failed to parse {label} at {path}: {exc}", file=sys.stderr)
+        return None
+    except OSError as exc:
+        print(f"ERROR: Could not read {label} at {path}: {exc}", file=sys.stderr)
+        return None
+
+
 def parse_filename(fname):
     """Extract date, from_agent, to_agent from a handoff filename."""
     name = fname.replace(".md", "")
@@ -128,23 +147,50 @@ def main():
         print("Pass --registry /path/to/chain-registry.json to override.", file=sys.stderr)
         sys.exit(1)
 
-    with open(registry_path) as f:
-        registry = json.load(f)
+    registry = load_json_file(registry_path, "chain registry")
+    if registry is None:
+        sys.exit(1)
+    if not isinstance(registry, dict):
+        print("ERROR: Chain registry must be a JSON object.", file=sys.stderr)
+        sys.exit(1)
 
     chains_map = registry.get("chains", {})
+    roots_map = registry.get("roots", {})
+    if not isinstance(chains_map, dict):
+        print("ERROR: Chain registry 'chains' must be a JSON object.", file=sys.stderr)
+        sys.exit(1)
+    if not isinstance(roots_map, dict):
+        print("ERROR: Chain registry 'roots' must be a JSON object.", file=sys.stderr)
+        sys.exit(1)
+
     seen_delegations = set()
     roots_out = []
 
-    for root_fname, root_data in registry.get("roots", {}).items():
+    for root_fname, root_data in roots_map.items():
+        if not isinstance(root_data, dict):
+            warn(f"Skipping malformed root entry for {root_fname!r}")
+            continue
+
         parsed = parse_filename(root_fname)
         desc = build_description(parsed, handoffs_dir, root_fname)
 
         delegations = []
-        for del_fname in root_data.get("delegations", []):
+        delegations_raw = root_data.get("delegations", [])
+        if not isinstance(delegations_raw, list):
+            warn(f"Root {root_fname!r} has non-list delegations; ignoring value")
+            delegations_raw = []
+
+        for del_fname in delegations_raw:
+            if not isinstance(del_fname, str):
+                warn(f"Skipping non-string delegation reference under {root_fname!r}")
+                continue
             if del_fname in seen_delegations:
                 continue
             seen_delegations.add(del_fname)
             chain_data = chains_map.get(del_fname, {})
+            if not isinstance(chain_data, dict):
+                warn(f"Delegation {del_fname!r} has malformed chain metadata; using defaults")
+                chain_data = {}
             del_parsed = parse_filename(del_fname)
             del_desc = build_description(del_parsed, handoffs_dir, del_fname)
             delegations.append({
@@ -175,8 +221,8 @@ def main():
     output = {"roots": roots_out, "meta": meta}
 
     os.makedirs(os.path.dirname(OUTPUT) if os.path.dirname(OUTPUT) else ".", exist_ok=True)
-    with open(OUTPUT, "w") as f:
-        json.dump(output, f, indent=2)
+    with open(OUTPUT, "w", encoding="utf-8") as f:
+        json.dump(output, f, indent=2, ensure_ascii=False)
 
     print(f"✓ {OUTPUT} updated — {len(roots_out)} root(s) from {registry_path}")
     print(f"  Snapshot date: {snapshot_date}")

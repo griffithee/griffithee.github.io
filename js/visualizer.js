@@ -737,7 +737,7 @@ const Visualizer = (() => {
     ensureToolbarControls(toolbarRef);
 
     try {
-      const res = await fetch('/data/chains.json');
+      const res = await fetch('data/chains.json');
       if (!res.ok) throw new Error('Failed to load chain data');
       const data = await res.json();
 

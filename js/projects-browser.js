@@ -31,31 +31,39 @@
     if (!container) return;
 
     fetch('data/projects.json')
-      .then(function (r) { return r.json(); })
-      .then(function (data) { render(container, data.projects, data.updated); })
+      .then(function (r) {
+        if (!r.ok) throw new Error('Failed to load project data');
+        return r.json();
+      })
+      .then(function (data) { render(container, data); })
       .catch(function () {
         container.innerHTML =
           '<p style="color:var(--text-muted);font-family:var(--font-mono);font-size:0.8rem;">Could not load project data.</p>';
       });
   }
 
-  function render(container, projects, updatedDate) {
+  function render(container, data) {
+    var projects = Array.isArray(data && data.projects) ? data.projects : [];
+    var updatedDate = data && typeof data.updated === 'string' ? data.updated : '';
     var tags = collectTags(projects);
 
     var filterHtml = tags.map(function (tag) {
       return '<button class="filter-btn' + (tag === 'all' ? ' active' : '') +
-        '" data-filter="' + tag + '">' + (FILTER_LABELS[tag] || tag) + '</button>';
+        '" data-filter="' + escapeHtml(tag) + '">' + escapeHtml(FILTER_LABELS[tag] || tag) + '</button>';
     }).join('');
 
     var cardsHtml = projects.map(renderCard).join('');
 
     var metaLine = updatedDate
-      ? '<p style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);margin-top:var(--space-4);">data/projects.json · last updated ' + updatedDate + '</p>'
+      ? '<p style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);margin-top:var(--space-4);">data/projects.json · last updated ' + escapeHtml(updatedDate) + '</p>'
+      : '';
+    var emptyState = projects.length === 0
+      ? '<div style="padding:var(--space-4);color:var(--text-muted);font-family:var(--font-mono);font-size:0.8rem;border:1px dashed var(--border);border-radius:var(--radius-md);">No project entries available.</div>'
       : '';
 
     container.innerHTML =
       '<div class="filter-btns" id="pb-filters">' + filterHtml + '</div>' +
-      '<div class="card-grid" id="pb-grid" style="margin-top:var(--space-4);">' + cardsHtml + '</div>' +
+      '<div class="card-grid" id="pb-grid" style="margin-top:var(--space-4);">' + (cardsHtml || emptyState) + '</div>' +
       metaLine;
 
     wireFilters(container);
@@ -66,7 +74,10 @@
     var order = ['all', 'active', 'production', 'prototype', 'writing', 'infrastructure', 'experiment'];
     var extra = [];
     projects.forEach(function (p) {
-      (p.tags || []).forEach(function (t) {
+      var item = p && typeof p === 'object' ? p : {};
+      var tags = Array.isArray(item.tags) ? item.tags : [];
+      tags.forEach(function (t) {
+        if (typeof t !== 'string') return;
         if (!seen[t]) { seen[t] = true; extra.push(t); }
       });
     });
@@ -93,14 +104,22 @@
   }
 
   function renderCard(p) {
-    var agentBadges = (p.agents || []).map(function (a) {
-      return '<span class="agent-badge ' + (AGENT_CLASS[a] || 'agent-claude') + '">' + a + '</span>';
+    p = p && typeof p === 'object' ? p : {};
+
+    var agents = Array.isArray(p.agents) ? p.agents : [];
+    var tags = Array.isArray(p.tags) ? p.tags.filter(function (t) { return typeof t === 'string'; }) : [];
+    var agentBadges = agents.map(function (a) {
+      return '<span class="agent-badge ' + (AGENT_CLASS[a] || 'agent-claude') + '">' + escapeHtml(a) + '</span>';
     }).join('');
 
     var statusClass = STATUS_TAG_CLASS[p.status] || 'tag-gray';
     var isDashed = p.status === 'scaffolded';
+    var href = safeHref(p.link);
+    var detailsHtml = href
+      ? '<a href="' + href + '" style="font-size:0.75rem;color:var(--text-muted);margin-left:auto;">details →</a>'
+      : '<span style="font-size:0.75rem;color:var(--text-muted);margin-left:auto;">details unavailable</span>';
 
-    return '<article class="card" data-tags="' + (p.tags || []).join(',') + '"' +
+    return '<article class="card" data-tags="' + escapeHtml(tags.join(',')) + '"' +
       (isDashed ? ' style="border-style:dashed;opacity:0.7;"' : '') + '>' +
       '<div class="card-header">' +
       '<div class="card-title">' + escHtml(p.name) + '</div>' +
@@ -108,7 +127,7 @@
       '</div>' +
       '<p class="card-desc">' + escHtml(p.desc) + '</p>' +
       '<div class="card-meta">' + agentBadges +
-      '<a href="' + p.link + '" style="font-size:0.75rem;color:var(--text-muted);margin-left:auto;">details →</a>' +
+      detailsHtml +
       '</div></article>';
   }
 
@@ -118,6 +137,19 @@
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+  }
+
+  function safeHref(value) {
+    if (!value) return '';
+
+    try {
+      var url = new URL(String(value), window.location.href);
+      var allowed = ['http:', 'https:'];
+      if (allowed.indexOf(url.protocol) === -1) return '';
+      return escHtml(url.href);
+    } catch (err) {
+      return '';
+    }
   }
 
   document.addEventListener('DOMContentLoaded', init);

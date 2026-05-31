@@ -14,7 +14,7 @@
           "date": "2026-05-30",
           "from": "Claude Code",
           "to": "Codex",
-          "description": "Enhance Chain Visualizer \u2014 SVG Tree Rendering",
+          "description": "Enhance Chain Visualizer — SVG Tree Rendering",
           "status": "limit_hit",
           "registered": "2026-05-31T02:06:54Z"
         }
@@ -25,8 +25,8 @@
       "date": "2026-05-31",
       "from": "Grok",
       "to": "Claude Code",
-      "description": "Phase 2 \u2014 Chain Visualizer SVG Visual Polish (griffithee.github.io)",
-      "status": "dispatched",
+      "description": "Phase 2 — Chain Visualizer SVG Visual Polish (griffithee.github.io)",
+      "status": "closed",
       "registered": "2026-05-31T05:30:45Z",
       "delegations": []
     },
@@ -35,8 +35,8 @@
       "date": "2026-05-31",
       "from": "Grok",
       "to": "Claude Code",
-      "description": "Personal Website \u2014 Two Quick Content Fixes",
-      "status": "dispatched",
+      "description": "Personal Website — Two Quick Content Fixes",
+      "status": "closed",
       "registered": "2026-05-31T11:00:58Z",
       "delegations": []
     },
@@ -45,14 +45,14 @@
       "date": "2026-05-31",
       "from": "Grok",
       "to": "Claude Code",
-      "description": "Phase 3 \u2014 Living Artifact + Data Freshness + One Addition (griffithee.github.io)",
-      "status": "dispatched",
+      "description": "Phase 3 — Living Artifact + Data Freshness + One Addition (griffithee.github.io)",
+      "status": "closed",
       "registered": "2026-05-31T11:26:33Z",
       "delegations": []
     }
   ],
   "meta": {
-    "description": "Agent delegation chains \u2014 Grok \u2192 Claude Code \u2192 Codex handoff flows",
+    "description": "Agent delegation chains — Grok → Claude Code → Codex handoff flows",
     "agents": {
       "Grok": {
         "role": "Strategy, architecture, direction",
