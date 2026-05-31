@@ -115,7 +115,10 @@
       : [];
     var tags = Array.isArray(p.tags) ? p.tags.filter(function (t) { return typeof t === 'string'; }) : [];
     var agentBadges = agents.length > 0 ? agents.map(function (a) {
-      return '<span class="agent-badge ' + (AGENT_CLASS[a] || 'agent-claude') + '">' + escHtml(a) + '</span>';
+      if (AGENT_CLASS[a]) {
+        return '<span class="agent-badge ' + AGENT_CLASS[a] + '">' + escHtml(a) + '</span>';
+      }
+      return '<span class="tag tag-gray">' + escHtml(a) + '</span>';
     }).join('') : '<span class="tag tag-gray">agents unknown</span>';
 
     var statusClass = STATUS_TAG_CLASS[status] || 'tag-gray';

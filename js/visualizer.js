@@ -85,6 +85,26 @@ const Visualizer = (() => {
     return text || fallback || '';
   }
 
+  function isValidNode(node) {
+    return !!node && typeof node === 'object' && typeof node.id === 'string';
+  }
+
+  function sanitizeDelegations(delegations) {
+    if (!Array.isArray(delegations)) return [];
+    return delegations.filter(isValidNode);
+  }
+
+  function sanitizeRoots(roots) {
+    if (!Array.isArray(roots)) return [];
+
+    return roots
+      .filter(isValidNode)
+      .map((root) => ({
+        ...root,
+        delegations: sanitizeDelegations(root.delegations),
+      }));
+  }
+
   /* Word-wrap text into at most 2 lines, breaking at word boundaries. */
   function wrapText(text, chars1, chars2) {
     const value = String(text || '');
@@ -773,24 +793,16 @@ const Visualizer = (() => {
       const data = await res.json();
       const meta = data && typeof data.meta === 'object' && data.meta !== null ? data.meta : {};
 
-      allRoots = Array.isArray(data.roots) ? data.roots : [];
+      allRoots = sanitizeRoots(data.roots);
       rootsMap = {};
       delegationsMap = {};
       updateToolbarSnapshot(meta.snapshot);
 
       allRoots.forEach((root) => {
-        if (!root || typeof root !== 'object' || typeof root.id !== 'string') {
-          return;
-        }
-
         rootsMap[root.id] = root;
-        const delegations = Array.isArray(root.delegations) ? root.delegations : [];
+        const delegations = root.delegations;
 
         delegations.forEach((delegation) => {
-          if (!delegation || typeof delegation !== 'object' || typeof delegation.id !== 'string') {
-            return;
-          }
-
           delegationsMap[delegation.id] = delegation;
         });
       });
