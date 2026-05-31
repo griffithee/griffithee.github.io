@@ -37,6 +37,22 @@
       </p>
     </header>
 
+    <!-- Projects at a Glance -->
+    <section class="section" id="projects-browser">
+      <div class="section-header">
+        <div class="section-label">Overview · All work</div>
+        <h2 class="section-title">Projects &amp; Experiments at a Glance</h2>
+        <p class="section-desc">
+          Everything active, in-prototype, or in-progress. Filter by category to find what you're looking for.
+        </p>
+      </div>
+      <div id="projects-browser-container">
+        <div style="color:var(--text-muted);font-family:var(--font-mono);font-size:0.8rem;">Loading…</div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
     <!-- Chain Visualizer -->
     <section class="section" id="chain-visualizer">
       <div class="section-header">
@@ -51,7 +67,7 @@
 
       <div class="visualizer-wrap">
         <div class="visualizer-toolbar">
-          <span class="visualizer-title">watcher/chain-registry.json · snapshot 2026-05-31</span>
+          <span class="visualizer-title">watcher/chain-registry.json · snapshot 2026-05-31 (Phase 3)</span>
           <div class="filter-btns">
             <button class="filter-btn active" data-filter="all">all</button>
             <button class="filter-btn" data-filter="active">active</button>
@@ -130,10 +146,15 @@
               <div class="timeline-title">Session limit detection</div>
               <div class="timeline-desc">Watcher detects usage limit hits, sends Telegram alert, auto-retries next cycle.</div>
             </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">May 31, 2026</div>
+              <div class="timeline-title">Website as live test</div>
+              <div class="timeline-desc">Claude Code builds this site as orchestrator. Phase 1 (foundation), Phase 2 (visual polish), Phase 3 (living artifact) all closed autonomously.</div>
+            </div>
             <div class="timeline-item active">
               <div class="timeline-date">May 31, 2026 — now</div>
-              <div class="timeline-title">Website as live test</div>
-              <div class="timeline-desc">Claude Code builds this site as orchestrator. You're looking at the output of that chain.</div>
+              <div class="timeline-title">Living artifact pattern</div>
+              <div class="timeline-desc">Phase 3: chains.json refresh script, filterable projects browser, update ritual. Site now maintainable in &lt;20 min without re-engaging the full agent system.</div>
             </div>
           </div>
         </div>
@@ -265,6 +286,7 @@
 </footer>
 
 <script src="js/nav.js"></script>
+<script src="js/projects-browser.js"></script>
 <script src="js/visualizer.js"></script>
 <script>
   Visualizer.init('chain-list-container', 'chain-detail-panel');

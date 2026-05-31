@@ -1,0 +1,85 @@
+{
+  "updated": "2026-05-31",
+  "projects": [
+    {
+      "id": "savewisdom",
+      "name": "SaveWisdom",
+      "type": "project",
+      "status": "production",
+      "tags": ["production", "active"],
+      "agents": ["Claude", "Hermes"],
+      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. Running live every morning.",
+      "link": "projects.html#savewisdom"
+    },
+    {
+      "id": "enough",
+      "name": "The Discipline of Enough",
+      "type": "project",
+      "status": "active",
+      "tags": ["active", "writing"],
+      "agents": ["Grok", "Hermes"],
+      "desc": "Book in progress. Raw story capture phase — one prompt per day via Telegram. 2 of ~40 prompts sent.",
+      "link": "projects.html#enough"
+    },
+    {
+      "id": "agent-brain",
+      "name": "agent-brain",
+      "type": "project",
+      "status": "active",
+      "tags": ["active", "infrastructure"],
+      "agents": ["Grok", "Claude", "Codex", "Hermes"],
+      "desc": "Shared coordination repo for all four AI agents. Handoffs, chain registry, watcher, decisions.",
+      "link": "projects.html#agent-brain"
+    },
+    {
+      "id": "personal-website",
+      "name": "griffithee.github.io",
+      "type": "project",
+      "status": "active",
+      "tags": ["active", "infrastructure"],
+      "agents": ["Grok", "Claude", "Codex"],
+      "desc": "This site. Built autonomously across 3 phases. Chain visualizer shows real delegation chains.",
+      "link": "experiments.html#chain-visualizer"
+    },
+    {
+      "id": "tax-autofill",
+      "name": "tax-autofill",
+      "type": "project",
+      "status": "prototype",
+      "tags": ["prototype"],
+      "agents": ["Claude"],
+      "desc": "Python pipeline to auto-fill a 1040 workbook from tax documents. Built in a weekend. Works.",
+      "link": "projects.html#tax-autofill"
+    },
+    {
+      "id": "gene-toolbox",
+      "name": "gene-toolbox",
+      "type": "project",
+      "status": "scaffolded",
+      "tags": ["prototype"],
+      "agents": ["Claude"],
+      "desc": "Personal utility scripts. Scaffolded. New utilities get added when recurring friction appears.",
+      "link": "projects.html#gene-toolbox"
+    },
+    {
+      "id": "chain-visualizer",
+      "name": "Chain Visualizer",
+      "type": "experiment",
+      "status": "active",
+      "tags": ["active", "experiment"],
+      "agents": ["Claude", "Codex"],
+      "desc": "SVG interactive visualization of agent delegation chains. Built across Phase 1 and Phase 2.",
+      "link": "experiments.html#chain-visualizer"
+    },
+    {
+      "id": "autonomous-loop",
+      "name": "Autonomous delegation loop",
+      "type": "experiment",
+      "status": "active",
+      "tags": ["active", "experiment"],
+      "agents": ["Grok", "Claude", "Codex", "Hermes"],
+      "desc": "Full Grok→Claude→Codex→Grok loop with no human stitching. Single-chain case proven May 2026.",
+      "link": "experiments.html#autonomy"
+    }
+  ]
+}

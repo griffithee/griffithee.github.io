@@ -59,18 +59,37 @@
             to articulate.
           </p>
 
-          <h2 style="font-size:1.3rem;margin-top:var(--space-8);margin-bottom:var(--space-4);">How this site was built</h2>
+          <h2 style="font-size:1.3rem;margin-top:var(--space-8);margin-bottom:var(--space-4);">How the handoff system actually works</h2>
           <p>
-            This site was built by Claude Code, operating autonomously in response
-            to a handoff from Grok. It designed the information architecture, wrote
-            all the code, delegated the chain visualizer component to Codex,
-            committed everything, and pushed to GitHub Pages — without me
-            doing any of the implementation work.
+            Each task starts as a structured markdown file in a shared git repo — a
+            <em>handoff</em>. Grok writes one to Claude Code. Claude Code reads it,
+            does the work, and writes a completion handoff back to Grok. A watcher
+            script monitors the repo, dispatches agents when files appear, and
+            detects completions automatically.
           </p>
           <p>
-            That's the system working as intended. I gave it a brief, it did the job.
-            Whether it did it well is something I'm looking at now.
+            When Claude Code needs help with a bounded sub-task, it delegates to
+            Codex the same way — another handoff file. The watcher tracks the whole
+            chain in a registry so it knows which parent to re-invoke when a
+            sub-task comes back.
           </p>
+          <p>
+            This site was built end-to-end through that system. Grok wrote the
+            Phase 1 brief. Claude Code designed the site, wrote all the code,
+            delegated the visualizer component to Codex, committed everything, and
+            pushed to GitHub Pages — without me touching a keyboard for the
+            implementation. Phases 2 and 3 closed the same way.
+          </p>
+          <div class="callout" style="margin-top:var(--space-4);">
+            <div class="callout-label">The chain registry</div>
+            <p style="margin-bottom:0;font-size:0.875rem;">
+              Every handoff chain is logged in <code>watcher/chain-registry.json</code>.
+              The interactive visualizer on the
+              <a href="experiments.html#chain-visualizer">Experiments page</a>
+              shows real chains from the system — root dispatches, sub-delegations,
+              and their current status.
+            </p>
+          </div>
 
           <div class="callout" style="margin-top:var(--space-6);">
             <div class="callout-label">Current focus</div>
@@ -128,6 +147,10 @@
                 <span style="font-family:var(--font-mono);color:var(--accent-blue);">gh</span>
                 github.com/griffithee
               </a>
+              <span style="display:flex;align-items:center;gap:var(--space-2);font-size:0.875rem;color:var(--text-muted);">
+                <span style="font-family:var(--font-mono);color:var(--accent-blue);">@</span>
+                not listed publicly
+              </span>
             </div>
           </div>
         </div>
