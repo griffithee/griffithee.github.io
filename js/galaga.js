@@ -475,7 +475,7 @@
           enterProgress: 0,
           diveProgress: 0,
           returnProgress: 0,
-          diveDuration: 0.92 + wave * 0.03 + (isAce ? -0.05 : 0),
+          diveDuration: Math.max(0.55, 0.95 - wave * 0.045 + (isAce ? 0.08 : 0)),
           returnDuration: 0.58 + wave * 0.02,
           shotTimer: rand(0.7, 2.1),
           shotBias: isAce ? 0.8 : 1,
@@ -748,6 +748,9 @@
         }
       } else if (enemy.state === 'diving') {
         enemy.diveProgress = Math.min(1, enemy.diveProgress + dt / enemy.diveDuration);
+        // Light homing toward current player position (makes dives feel more dangerous)
+        const homingStrength = 0.35 + state.wave * 0.04;
+        enemy.targetX = lerp(enemy.targetX, clamp(player.x, 40, view.w - 40), dt * homingStrength);
         const t = easeInOutCubic(enemy.diveProgress);
         const arc = Math.sin(enemy.diveProgress * Math.PI) * enemy.arc;
         enemy.x = lerp(enemy.startX, enemy.targetX, t) + arc * 0.22;
@@ -812,11 +815,11 @@
     enemy.state = 'diving';
     enemy.startX = start.x;
     enemy.startY = start.y;
-    enemy.targetX = clamp(player.x + rand(-120, 120), 34, view.w - 34);
-    enemy.targetY = clamp(view.h * rand(0.64, 0.79), view.h * 0.58, view.h - 72);
+    enemy.targetX = clamp(player.x + rand(-35, 35), 34, view.w - 34);
+    enemy.targetY = clamp(view.h * 0.82 + rand(-25, 25), view.h * 0.68, view.h - 55);
     enemy.diveProgress = 0;
     enemy.shotFired = false;
-    enemy.diveDuration = 0.9 + state.wave * 0.03 + (enemy.type === 'ace' ? -0.05 : 0);
+    enemy.diveDuration = Math.max(0.55, 0.95 - state.wave * 0.045 + (enemy.type === 'ace' ? 0.08 : 0));
     enemy.arc = rand(-120, 120);
     sfx.dive();
   }
