@@ -42,6 +42,16 @@
       "link": "experiments.html#chain-visualizer"
     },
     {
+      "id": "arcade-run",
+      "name": "Arcade Run",
+      "type": "experiment",
+      "status": "active",
+      "tags": ["active", "experiment"],
+      "agents": ["Codex", "Claude"],
+      "desc": "Galaga-style fixed shooter in vanilla Canvas. The phase 1 test is all about feel, not feature count.",
+      "link": "game.html"
+    },
+    {
       "id": "tax-autofill",
       "name": "tax-autofill",
       "type": "project",
