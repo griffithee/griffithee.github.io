@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
   <title>Experiments — griffithee</title>
   <meta name="description" content="AI agent delegation chains, autonomy experiments, and what I'm learning.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -288,8 +290,5 @@
 <script src="js/nav.js"></script>
 <script src="js/projects-browser.js"></script>
 <script src="js/visualizer.js"></script>
-<script>
-  Visualizer.init('chain-list-container', 'chain-detail-panel');
-</script>
 </body>
 </html>

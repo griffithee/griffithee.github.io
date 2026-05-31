@@ -23,7 +23,8 @@ from datetime import datetime, timezone
 AGENT_BRAIN_DEFAULT = "/mnt/c/Users/eabfd/agent-brain"
 REGISTRY_DEFAULT = os.path.join(AGENT_BRAIN_DEFAULT, "watcher", "chain-registry.json")
 HANDOFFS_DEFAULT = os.path.join(AGENT_BRAIN_DEFAULT, "handoffs")
-OUTPUT = "data/chains.json"
+SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUTPUT = os.path.join(SITE_ROOT, "data", "chains.json")
 
 AGENT_NAMES = {
     "grok": "Grok",

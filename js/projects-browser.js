@@ -70,7 +70,8 @@
   }
 
   function collectTags(projects) {
-    var seen = { all: true };
+    var seen = Object.create(null);
+    seen.all = true;
     var order = ['all', 'active', 'production', 'prototype', 'writing', 'infrastructure', 'experiment'];
     var extra = [];
     projects.forEach(function (p) {

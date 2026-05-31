@@ -105,6 +105,11 @@ const Visualizer = (() => {
         break;
       }
     }
+    if (!line1) {
+      line1 = truncateText(value, chars1);
+    } else if (line1.length > chars1) {
+      line1 = truncateText(line1, chars1);
+    }
     return { line1, line2 };
   }
 
@@ -827,3 +832,15 @@ const Visualizer = (() => {
 
   return { init };
 })();
+
+function autoInitVisualizer() {
+  if (document.getElementById('chain-list-container') && document.getElementById('chain-detail-panel')) {
+    Visualizer.init('chain-list-container', 'chain-detail-panel');
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', autoInitVisualizer, { once: true });
+} else {
+  autoInitVisualizer();
+}
