@@ -7,6 +7,7 @@
 - `M`: toggle sound.
 - `R`: restart.
 - On touch, the left/right/fire buttons work and the canvas can be dragged to steer.
+- Best score is stored locally in the browser.
 
 ## Update Ritual
 

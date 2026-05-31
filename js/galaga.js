@@ -10,6 +10,7 @@
     score: document.getElementById('hud-score'),
     lives: document.getElementById('hud-lives'),
     wave: document.getElementById('hud-wave'),
+    best: document.getElementById('hud-best'),
     remaining: document.getElementById('hud-remaining'),
     overlay: document.getElementById('game-overlay'),
     startButton: document.getElementById('start-run'),
@@ -22,11 +23,13 @@
     score: 0,
     lives: 3,
     wave: 1,
+    bestScore: 0,
     started: false,
     gameOver: false,
     paused: false,
     scoreFlash: 0,
     shake: 0,
+    waveTransition: 0,
     waveMessage: '',
     waveMessageTimer: 0,
     soundOn: true,
@@ -62,6 +65,7 @@
   let rafId = 0;
   let audioCtx = null;
   let resizePending = false;
+  const bestScoreKey = 'griffithee.arcade-run.best-score';
 
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   const rand = (min, max) => min + Math.random() * (max - min);
@@ -101,6 +105,7 @@
   }
 
   function init() {
+    state.bestScore = loadBestScore();
     resizeCanvas();
     window.addEventListener('resize', queueResize, { passive: true });
     window.addEventListener('orientationchange', queueResize, { passive: true });
@@ -186,6 +191,33 @@
         speed: rand(18, 76),
         alpha: rand(0.25, 0.9),
       });
+    }
+  }
+
+  function loadBestScore() {
+    if (!window.localStorage) return 0;
+    try {
+      const raw = window.localStorage.getItem(bestScoreKey);
+      const value = raw === null ? 0 : Number.parseInt(raw, 10);
+      return Number.isFinite(value) && value > 0 ? value : 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function saveBestScore(score) {
+    if (!window.localStorage) return;
+    try {
+      window.localStorage.setItem(bestScoreKey, String(Math.max(0, Math.floor(score))));
+    } catch {
+      // Ignore storage errors. The game still works without persistence.
+    }
+  }
+
+  function syncBestScore() {
+    if (state.score > state.bestScore) {
+      state.bestScore = state.score;
+      saveBestScore(state.bestScore);
     }
   }
 
@@ -358,6 +390,7 @@
     state.score = 0;
     state.lives = 3;
     state.wave = 1;
+    state.waveTransition = 0;
     state.started = !!fromUser;
     state.gameOver = false;
     state.paused = false;
@@ -495,6 +528,7 @@
 
     state.waveMessage = `Wave ${wave}`;
     state.waveMessageTimer = 1.2;
+    state.waveTransition = 0;
     enemyShotClock = rand(0.7, 1.4);
     spawnDiveClock = rand(1.6, 2.6);
   }
@@ -552,6 +586,7 @@
     enemy.dead = true;
     const points = enemy.value + (byDive ? 50 : 0);
     state.score += points;
+    syncBestScore();
     state.scoreFlash = 0.35;
     state.shake = Math.max(state.shake, byDive ? 6 : 4);
     sfx.explosion();
@@ -594,11 +629,12 @@
   }
 
   function gameOver() {
+    syncBestScore();
     state.gameOver = true;
     state.started = true;
     state.waveMessage = 'Game over';
     state.waveMessageTimer = 2.0;
-    showOverlay('Game over', `You reached wave ${state.wave} with ${formatScore(state.score)} points. The core loop is still tight enough to keep going, which is the whole point here.`, 'Run ended');
+    showOverlay('Game over', `You reached wave ${state.wave} with ${formatScore(state.score)} points. Best run: ${formatScore(state.bestScore)}. The core loop is still tight enough to keep going, which is the whole point here.`, 'Run ended');
   }
 
   function formatScore(score) {
@@ -609,6 +645,7 @@
     hud.score.textContent = formatScore(state.score);
     hud.lives.textContent = String(Math.max(0, state.lives));
     hud.wave.textContent = String(state.wave);
+    hud.best.textContent = formatScore(state.bestScore);
     hud.remaining.textContent = String(enemies.filter((enemy) => !enemy.dead).length);
     hud.soundToggle.textContent = state.soundOn ? 'Sound on' : 'Sound off';
   }
@@ -622,6 +659,20 @@
     }
 
     if (state.paused || state.gameOver) {
+      updateHud();
+      return;
+    }
+
+    if (state.waveTransition > 0) {
+      updateStars(dt);
+      updateParticles(dt);
+      if (state.scoreFlash > 0) state.scoreFlash -= dt;
+      if (state.shake > 0) state.shake = Math.max(0, state.shake - dt * 18);
+      if (state.waveMessageTimer > 0) state.waveMessageTimer -= dt;
+      state.waveTransition = Math.max(0, state.waveTransition - dt);
+      if (state.waveTransition === 0) {
+        spawnWave(state.wave);
+      }
       updateHud();
       return;
     }
@@ -918,15 +969,16 @@
     if (state.gameOver) return;
     bullets.length = 0;
     enemyBullets.length = 0;
-    state.score += 500 + state.lives * 80;
+    const bonus = 500 + state.lives * 80;
+    state.score += bonus;
+    syncBestScore();
     state.scoreFlash = 0.45;
     state.wave += 1;
-    state.waveMessage = `Wave ${state.wave}`;
-    state.waveMessageTimer = 1.1;
+    state.waveMessage = `Wave ${state.wave - 1} clear`;
+    state.waveMessageTimer = 0.95;
+    state.waveTransition = 0.85;
     state.shake = 6;
     sfx.wave();
-    updateHud();
-    spawnWave(state.wave);
   }
 
   function draw() {
