@@ -487,7 +487,7 @@ const Visualizer = (() => {
             statusColor: getStatusColor(delegation.status),
             routeLabel: `${safeText(delegation.from, 'Unknown')} -> ${safeText(delegation.to, 'Unknown')}`,
             description: delegation.description,
-            footerText: formatDate(delegation.registered),
+            footerText: formatDate(delegation.registered) || 'unknown',
             nodeType: 'delegation', nodeId: delegation.id,
             dataRootId: root.id,
           });
@@ -513,7 +513,7 @@ const Visualizer = (() => {
             routeColor, statusColor,
             routeLabel: `${rootFrom} -> ${rootTo}`,
             description: root.description,
-            footerText: `${formatDate(root.date)}${delegations.length > 0 ? ` · ${delegations.length} delegation${delegations.length > 1 ? 's' : ''}` : ' · no delegations'}`,
+            footerText: `${formatDate(root.date) || 'unknown'}${delegations.length > 0 ? ` · ${delegations.length} delegation${delegations.length > 1 ? 's' : ''}` : ' · no delegations'}`,
             nodeType: 'root', nodeId: root.id,
             dataRootId: root.id,
           })}
