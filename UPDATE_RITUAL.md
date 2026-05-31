@@ -44,10 +44,8 @@ If the registry path differs from the default (`/mnt/c/Users/eabfd/agent-brain`)
 python3 scripts/refresh-chains.py --registry /path/to/chain-registry.json
 ```
 
-Update the snapshot date shown in the visualizer toolbar in `experiments.html`:
-```html
-<span class="visualizer-title">watcher/chain-registry.json · snapshot YYYY-MM-DD</span>
-```
+The visualizer toolbar snapshot label now auto-updates from `data/chains.json` metadata.
+If it looks wrong, fix the data refresh step instead of hand-editing the HTML label.
 
 ---
 

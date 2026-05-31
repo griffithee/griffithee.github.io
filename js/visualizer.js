@@ -723,6 +723,18 @@ const Visualizer = (() => {
     });
   }
 
+  function updateToolbarSnapshot(snapshot) {
+    if (!toolbarRef) return;
+
+    const titleEl = toolbarRef.querySelector('.visualizer-title');
+    if (!titleEl) return;
+
+    const value = String(snapshot || '').trim();
+    if (value) {
+      titleEl.textContent = `watcher/chain-registry.json · snapshot ${value}`;
+    }
+  }
+
   function updateSelectedDetailPanel(filteredRoots) {
     const selected = findSelectedNodeInRoots(filteredRoots);
     if (!selected) {
@@ -751,10 +763,12 @@ const Visualizer = (() => {
       const res = await fetch('data/chains.json');
       if (!res.ok) throw new Error('Failed to load chain data');
       const data = await res.json();
+      const meta = data && typeof data.meta === 'object' && data.meta !== null ? data.meta : {};
 
       allRoots = Array.isArray(data.roots) ? data.roots : [];
       rootsMap = {};
       delegationsMap = {};
+      updateToolbarSnapshot(meta.snapshot);
 
       allRoots.forEach((root) => {
         if (!root || typeof root !== 'object' || typeof root.id !== 'string') {
