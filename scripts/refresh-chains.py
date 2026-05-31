@@ -53,6 +53,10 @@ META = {
     },
 }
 
+HANDOFF_FILENAME_RE = re.compile(
+    r"^\d{4}-\d{2}-\d{2}-from-[a-z0-9-]+-to-[a-z0-9-]+-[A-Za-z0-9._-]+\.md$"
+)
+
 
 def warn(message):
     print(f"WARNING: {message}", file=sys.stderr)
@@ -73,12 +77,31 @@ def load_json_file(path, label):
         return None
 
 
+def safe_handoff_filename(fname):
+    """Return a safe handoff basename or None if the input is unsafe."""
+    if not isinstance(fname, str):
+        return None
+
+    if os.path.basename(fname) != fname:
+        warn(f"Skipping unsafe handoff filename {fname!r}")
+        return None
+
+    if not HANDOFF_FILENAME_RE.match(fname):
+        return None
+
+    return fname
+
+
 def parse_filename(fname):
     """Extract date, from_agent, to_agent from a handoff filename."""
-    name = fname.replace(".md", "")
+    safe_name = safe_handoff_filename(fname)
+    if not safe_name:
+        return None
+
+    name = safe_name.replace(".md", "")
     m = re.match(r"(\d{4}-\d{2}-\d{2})-from-(.+?)-to-(.+?)-(.+)", name)
     if not m:
-        return {"id": name, "date": "", "from": "Unknown", "to": "Unknown"}
+        return None
     date, from_raw, to_raw, slug = m.groups()
     return {
         "id": name,
@@ -90,9 +113,13 @@ def parse_filename(fname):
 
 def get_description(handoffs_dir, fname):
     """Try to read a description from the handoff file's first heading."""
+    safe_name = safe_handoff_filename(fname)
+    if not safe_name:
+        return None
+
     for search_path in [
-        os.path.join(handoffs_dir, fname),
-        os.path.join(handoffs_dir, "archive", fname),
+        os.path.join(handoffs_dir, safe_name),
+        os.path.join(handoffs_dir, "archive", safe_name),
     ]:
         if not os.path.exists(search_path):
             continue
@@ -172,6 +199,9 @@ def main():
             continue
 
         parsed = parse_filename(root_fname)
+        if not parsed:
+            warn(f"Skipping root with unsafe or invalid filename {root_fname!r}")
+            continue
         desc = build_description(parsed, handoffs_dir, root_fname)
 
         delegations = []
@@ -192,6 +222,9 @@ def main():
                 warn(f"Delegation {del_fname!r} has malformed chain metadata; using defaults")
                 chain_data = {}
             del_parsed = parse_filename(del_fname)
+            if not del_parsed:
+                warn(f"Skipping delegation with unsafe or invalid filename {del_fname!r}")
+                continue
             del_desc = build_description(del_parsed, handoffs_dir, del_fname)
             delegations.append({
                 "id": del_parsed["id"],
