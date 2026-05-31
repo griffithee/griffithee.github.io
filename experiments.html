@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experiments — griffithee</title>
+  <meta name="description" content="AI agent delegation chains, autonomy experiments, and what I'm learning.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">griffith<span>ee</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <header class="page-header">
+      <div class="page-header-eyebrow">Experiments &amp; Learning</div>
+      <h1 class="page-header-title">What I'm figuring out</h1>
+      <p class="page-header-desc">
+        Working notes on the autonomy experiments. What's working, what isn't,
+        and what surprised me. The chain visualizer below shows real delegation
+        data from the agent system.
+      </p>
+    </header>
+
+    <!-- Chain Visualizer -->
+    <section class="section" id="chain-visualizer">
+      <div class="section-header">
+        <div class="section-label">Interactive · Live data</div>
+        <h2 class="section-title">Agent Delegation Chain Visualizer</h2>
+        <p class="section-desc">
+          Each entry below is a real handoff chain from the agent-brain system.
+          Root nodes are Grok→Claude Code dispatches. Delegations are Claude Code→Codex sub-tasks.
+          Click any row to see details.
+        </p>
+      </div>
+
+      <div class="visualizer-wrap">
+        <div class="visualizer-toolbar">
+          <span class="visualizer-title">watcher/chain-registry.json · snapshot 2026-05-31</span>
+          <div class="filter-btns">
+            <button class="filter-btn active" data-filter="all">all</button>
+            <button class="filter-btn" data-filter="active">active</button>
+            <button class="filter-btn" data-filter="closed">closed</button>
+          </div>
+        </div>
+
+        <div class="visualizer-body">
+          <div id="chain-list-container">
+            <div style="color:var(--text-muted);font-family:var(--font-mono);font-size:0.8rem;">
+              Loading chain data…
+            </div>
+          </div>
+
+          <div id="chain-detail-panel" class="chain-detail-panel">
+            <!-- populated by visualizer.js -->
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:var(--space-4);">
+        <p style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono);">
+          Data source: agent-brain/watcher/chain-registry.json — static snapshot, updated on deploy.
+          <a href="https://github.com/griffithee/agent-brain" target="_blank" rel="noopener">View the source system →</a>
+        </p>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Autonomy experiments narrative -->
+    <section class="section" id="autonomy">
+      <div class="section-header">
+        <div class="section-label">Experiment 1</div>
+        <h2 class="section-title">Autonomous multi-agent delegation</h2>
+      </div>
+
+      <div class="highlight-row">
+        <div>
+          <p>
+            The core question: can I hand a goal to Grok, have Grok hand it to Claude Code,
+            Claude Code hand sub-tasks to Codex, and have the whole loop close — including
+            the git push and notification — without me stitching anything together?
+          </p>
+          <p>
+            As of May 2026: yes, for the single-chain case. The watcher script monitors
+            the handoffs directory, dispatches agents when files appear, and auto-closes
+            the loop when completion handoffs are detected.
+          </p>
+          <p>
+            What surprised me: the blockers were all prompt and harness issues, not
+            capability gaps. Claude Code was capable of closing loops the whole time —
+            but early prompt instructions told it to hand off to Codex instead. Once
+            that was fixed, it worked.
+          </p>
+        </div>
+        <div>
+          <div class="timeline">
+            <div class="timeline-item done">
+              <div class="timeline-date">Early May 2026</div>
+              <div class="timeline-title">First handoff experiment</div>
+              <div class="timeline-desc">Manual Grok→Claude Code handoff. Claude Code closes with a commit and completion file. Manual stitching.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">Mid-May 2026</div>
+              <div class="timeline-title">Watcher automates dispatch</div>
+              <div class="timeline-desc">handoff-watcher.sh dispatches Claude Code automatically when files appear in handoffs/.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">May 30, 2026</div>
+              <div class="timeline-title">Full chain closes without human</div>
+              <div class="timeline-desc">Grok→Claude Code→Codex→Claude Code→Grok completes end-to-end. Chain registry + Strategy R.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">May 31, 2026</div>
+              <div class="timeline-title">Session limit detection</div>
+              <div class="timeline-desc">Watcher detects usage limit hits, sends Telegram alert, auto-retries next cycle.</div>
+            </div>
+            <div class="timeline-item active">
+              <div class="timeline-date">May 31, 2026 — now</div>
+              <div class="timeline-title">Website as live test</div>
+              <div class="timeline-desc">Claude Code builds this site as orchestrator. You're looking at the output of that chain.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Learnings -->
+    <section class="section" id="learnings">
+      <div class="section-header">
+        <div class="section-label">Key findings</div>
+        <h2 class="section-title">What I've learned</h2>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Capability gaps are usually prompt gaps</div>
+          <p class="card-desc">
+            Several times I assumed an agent couldn't do something and built a workaround —
+            only to find the agent could do it fine, but the prompt was instructing it not to.
+            Debug the instructions before debugging the model.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Live tests find what static review misses</div>
+          <p class="card-desc">
+            Code that passes syntax checks and static review can still fail in the
+            watcher's cron environment. PATH differences, prompt/detector mismatches,
+            timing issues — these only appear when the system actually runs.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Declare the role in the prompt</div>
+          <p class="card-desc">
+            Agents need to know their role in the current chain. "You are the orchestrator"
+            vs "you are the sub-task implementer" changes behavior significantly. Same model,
+            different stance.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Codex non-interactive is not the closer</div>
+          <p class="card-desc">
+            <code>codex exec</code> in non-interactive mode reads the prompt and exits
+            without creating handoffs or pushing. Useful for bounded code-gen. Not useful
+            for loop-closing, review, or orchestration.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Registry beats filename parsing</div>
+          <p class="card-desc">
+            Early chain tracking parsed filenames to resolve parent-child relationships.
+            Fragile. The chain registry (Strategy R) looks up delegation filenames directly —
+            works even after archiving, collision-safe for parallel chains.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Agent output is not the same as agent context</div>
+          <p class="card-desc">
+            Hermes can send a Telegram message about what an agent did, but the agent
+            that produced the message doesn't have Hermes's delivery context and vice versa.
+            The coordination layer (handoffs, registry) is the shared ground truth.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- What's next -->
+    <section class="section" id="next">
+      <div class="section-header">
+        <div class="section-label">What's next</div>
+        <h2 class="section-title">Open questions</h2>
+        <p class="section-desc">
+          Things I haven't figured out yet. These are genuine open questions, not rhetorical ones.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card" style="border-style:dashed;">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Parallel chains</div>
+          <p class="card-desc">
+            Strategy R is designed to be collision-safe for concurrent chains, but I haven't
+            run a real parallel load test. Does it actually work when two Grok→Claude dispatches
+            are active simultaneously?
+          </p>
+          <span class="tag tag-orange">untested</span>
+        </article>
+
+        <article class="card" style="border-style:dashed;">
+          <div class="card-title" style="margin-bottom:var(--space-3);">Codex interactive mode</div>
+          <p class="card-desc">
+            If Codex interactive mode were reliably triggerable from cron, the Codex role
+            could expand significantly. Currently it's only useful for bounded, self-contained
+            code-gen. What would the expanded model look like?
+          </p>
+          <span class="tag tag-orange">exploring</span>
+        </article>
+
+        <article class="card" style="border-style:dashed;">
+          <div class="card-title" style="margin-bottom:var(--space-3);">User intent vs agent output</div>
+          <p class="card-desc">
+            The agents are good at executing handoffs. They're less good at knowing when
+            a handoff's intent has shifted since it was written. How do you route that
+            kind of ambiguity back to the user without blocking the whole chain?
+          </p>
+          <span class="tag tag-orange">open</span>
+        </article>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">griffithee · built with Claude Code</span>
+    <div class="footer-links">
+      <a href="https://github.com/griffithee" target="_blank" rel="noopener">GitHub</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/visualizer.js"></script>
+<script>
+  Visualizer.init('chain-list-container', 'chain-detail-panel');
+</script>
+</body>
+</html>

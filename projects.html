@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — griffithee</title>
+  <meta name="description" content="The AI-assisted projects I'm building and using.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">griffith<span>ee</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <header class="page-header">
+      <div class="page-header-eyebrow">Projects</div>
+      <h1 class="page-header-title">Things I'm building</h1>
+      <p class="page-header-desc">
+        These are real projects — tools I use, systems I depend on, writing I'm doing.
+        AI is a core part of the workflow for each of them, not a bolt-on.
+      </p>
+    </header>
+
+    <!-- SaveWisdom -->
+    <section class="section" id="savewisdom">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);">
+        <div>
+          <div class="section-label">Daily use · Production</div>
+          <h2 class="section-title">SaveWisdom</h2>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="agent-badge agent-hermes">Hermes</span>
+            <span class="tag tag-gray">Python</span>
+            <span class="tag tag-gray">Telegram</span>
+            <span class="tag tag-green">production</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div>
+          <p>
+            SaveWisdom is a daily reflection coach that runs entirely through Telegram.
+            Every morning it sends one prompt — a question, an observation, a challenge —
+            designed to surface something worth thinking about.
+          </p>
+          <p>
+            The prompts are grounded in stoic philosophy and modern behavior change
+            research. Claude generates them. Hermes (my Telegram gateway agent) delivers
+            them. I respond when I want to, ignore them when I don't, and the system
+            doesn't nag.
+          </p>
+          <p>
+            It started as a weekend experiment to see if I'd actually engage with a
+            daily reflection practice if it came to me instead of requiring me to go
+            somewhere. I do. It's one of the stickiest things I've built.
+          </p>
+          <div style="margin-top:var(--space-4);">
+            <div class="callout">
+              <div class="callout-label">What actually works</div>
+              <p style="margin-bottom:0;font-size:0.875rem;">
+                Frictionless delivery (Telegram, no app). One prompt, not five.
+                No response required. The habit loops around receiving, not producing.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Stack</h4>
+            <div class="detail-grid">
+              <span class="detail-label">delivery</span>
+              <span class="detail-value">Telegram Bot API</span>
+              <span class="detail-label">generation</span>
+              <span class="detail-value">Claude (Anthropic SDK)</span>
+              <span class="detail-label">scheduling</span>
+              <span class="detail-value">Hermes cron / watcher</span>
+              <span class="detail-label">runtime</span>
+              <span class="detail-value">Python, WSL</span>
+              <span class="detail-label">status</span>
+              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>running daily</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Enough -->
+    <section class="section" id="enough">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);">
+        <div>
+          <div class="section-label">Writing · Phase 1 Active</div>
+          <h2 class="section-title">The Discipline of Enough</h2>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);">
+            <span class="agent-badge agent-grok">Grok</span>
+            <span class="agent-badge agent-hermes">Hermes</span>
+            <span class="tag tag-gray">Writing</span>
+            <span class="tag tag-blue">active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div>
+          <p>
+            A book-in-progress about navigating hard life transitions — the moment when
+            more stops feeling like the answer, and you have to figure out what "enough"
+            actually means.
+          </p>
+          <p>
+            The process: Grok designed a daily story prompt system. Hermes delivers
+            one prompt per day via Telegram. I respond in my own voice, stream of
+            consciousness. The system captures and stores the raw material. Editing
+            and structure come later.
+          </p>
+          <p>
+            Phase 1 is raw capture only — no editing, no structure, just get the stories
+            out. This keeps me from getting stuck in craft before I have material.
+          </p>
+          <div style="margin-top:var(--space-4);">
+            <div class="callout">
+              <div class="callout-label">The autonomy angle</div>
+              <p style="margin-bottom:0;font-size:0.875rem;">
+                Grok designed the prompt arc. Hermes manages the delivery schedule
+                and stores responses. I show up and write. The agents do the logistics
+                so I can focus on the actual hard part — telling the truth.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Progress</h4>
+            <div class="detail-grid">
+              <span class="detail-label">phase</span>
+              <span class="detail-value">1 — raw story capture</span>
+              <span class="detail-label">prompts sent</span>
+              <span class="detail-value">2 of ~40 planned</span>
+              <span class="detail-label">frequency</span>
+              <span class="detail-value">1 prompt / day via Telegram</span>
+              <span class="detail-label">storage</span>
+              <span class="detail-value">agent-brain / Obsidian wiki</span>
+              <span class="detail-label">status</span>
+              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>prompt 2 pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- agent-brain -->
+    <section class="section" id="agent-brain">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);">
+        <div>
+          <div class="section-label">Infrastructure · Core System</div>
+          <h2 class="section-title">agent-brain</h2>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);">
+            <span class="agent-badge agent-grok">Grok</span>
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="agent-badge agent-codex">Codex</span>
+            <span class="agent-badge agent-hermes">Hermes</span>
+            <span class="tag tag-gray">Bash</span>
+            <span class="tag tag-gray">JSON</span>
+            <span class="tag tag-blue">active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div>
+          <p>
+            agent-brain is the shared coordination repo for the whole AI agent system.
+            It's a git repo that all four agents (Hermes, Grok, Claude Code, Codex)
+            read and write — the shared working memory.
+          </p>
+          <p>
+            The core mechanism is handoffs: structured files that route work between
+            agents. Grok writes a handoff to Claude Code. Claude Code implements, then
+            creates a completion handoff back to Grok. A watcher script monitors the
+            repo and auto-dispatches agents when handoffs appear.
+          </p>
+          <p>
+            The chain registry tracks the full delegation graph — who dispatched what,
+            to whom, and whether it closed. This site's interactive visualizer shows
+            those chains.
+          </p>
+          <div style="margin-top:var(--space-4);">
+            <a href="https://github.com/griffithee/agent-brain" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub →</a>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Agents in the system</h4>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+              <div style="display:flex;align-items:center;gap:var(--space-3);">
+                <span class="agent-badge agent-grok">Grok</span>
+                <span style="font-size:0.82rem;color:var(--text-secondary);">Strategy, architecture, deep work</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);">
+                <span class="agent-badge agent-claude">Claude</span>
+                <span style="font-size:0.82rem;color:var(--text-secondary);">Implementation, orchestration, git</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);">
+                <span class="agent-badge agent-codex">Codex</span>
+                <span style="font-size:0.82rem;color:var(--text-secondary);">Bounded code-gen sub-tasks</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:var(--space-3);">
+                <span class="agent-badge agent-hermes">Hermes</span>
+                <span style="font-size:0.82rem;color:var(--text-secondary);">Telegram gateway, capture, reminders</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Smaller projects -->
+    <section class="section" id="other-projects">
+      <div class="section-header">
+        <div class="section-label">Other work</div>
+        <h2 class="section-title">More projects</h2>
+      </div>
+
+      <div class="card-grid">
+
+        <article class="card" id="tax-autofill">
+          <div class="card-header">
+            <div class="card-title">tax-autofill</div>
+            <span class="tag tag-orange">prototype</span>
+          </div>
+          <p class="card-desc">
+            Python pipeline that reads tax documents (1099s, W-2s, brokerage statements)
+            and auto-fills a 1040 workbook. Built in a weekend — saved a few hours the
+            first year it ran. Needs polish but works.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="tag tag-gray">Python</span>
+          </div>
+        </article>
+
+        <article class="card" id="book-to-skill">
+          <div class="card-header">
+            <div class="card-title">book-to-skill</div>
+            <span class="tag tag-orange">prototype</span>
+          </div>
+          <p class="card-desc">
+            Converts technical books and documentation into Claude Code skills — callable
+            tools that encode the expert knowledge from the source material. The goal is
+            to compress learning into something actionable.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="tag tag-gray">Python</span>
+            <span class="tag tag-gray">Markdown</span>
+          </div>
+        </article>
+
+        <article class="card" id="gene-toolbox" style="border-style:dashed;opacity:0.7;">
+          <div class="card-header">
+            <div class="card-title">gene-toolbox</div>
+            <span class="tag tag-gray">scaffolded</span>
+          </div>
+          <p class="card-desc">
+            Personal utility scripts and automation helpers. The scaffolding is there.
+            Actual utilities get added as I encounter recurring friction — rather than
+            pre-building things I might not need.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="tag tag-gray">Python</span>
+            <span class="tag tag-gray">Bash</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">griffithee · built with Claude Code</span>
+    <div class="footer-links">
+      <a href="https://github.com/griffithee" target="_blank" rel="noopener">GitHub</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+</body>
+</html>

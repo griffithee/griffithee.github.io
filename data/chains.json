@@ -1,0 +1,81 @@
+{
+  "roots": [
+    {
+      "id": "2026-05-31-from-grok-to-claude-code-personal-website-phase-1",
+      "date": "2026-05-31",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "Build Phase 1 of personal website (griffithee.github.io) — design, implementation, interactive features, deployment",
+      "status": "in_progress",
+      "registered": "2026-05-31T01:35:40Z",
+      "delegations": [
+        {
+          "id": "2026-05-30-from-claude-code-to-codex-personal-website-chain-visualizer",
+          "date": "2026-05-30",
+          "from": "Claude Code",
+          "to": "Codex",
+          "description": "Implement enhanced SVG tree rendering for Chain Visualizer component — see handoff for full spec",
+          "status": "delegated",
+          "registered": "2026-05-30T00:00:00Z"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-31-from-grok-to-claude-code-watcher-chain-tracking",
+      "date": "2026-05-31",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "Implement chain tracking enhancement — root tracking, lifecycle states, chain-status.sh observability tool",
+      "status": "closed",
+      "registered": "2026-05-31T00:30:00Z",
+      "delegations": [
+        {
+          "id": "2026-05-30-from-claude-code-to-codex-chain-registry-live-test-2",
+          "date": "2026-05-30",
+          "from": "Claude Code",
+          "to": "Codex",
+          "description": "Live test 2 — validate registry and full loop closure with dedup guard",
+          "status": "closed",
+          "registered": "2026-05-31T00:49:07Z"
+        },
+        {
+          "id": "2026-05-30-from-claude-code-to-codex-session-limit-detection",
+          "date": "2026-05-30",
+          "from": "Claude Code",
+          "to": "Codex",
+          "description": "Session limit detection — detect usage limit hits, send Telegram alert, auto-retry on next watcher cycle",
+          "status": "closed",
+          "registered": "2026-05-31T01:05:17Z"
+        }
+      ]
+    },
+    {
+      "id": "2026-05-30-from-grok-to-claude-code-PATTERN-claude-orchestrator",
+      "date": "2026-05-30",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "Update PATTERN-claude-orchestrator — document real autonomy model after falsifying the Codex-as-closer assumption",
+      "status": "closed",
+      "registered": "2026-05-30T18:00:00Z",
+      "delegations": []
+    }
+  ],
+  "meta": {
+    "description": "Agent delegation chains — Grok → Claude Code → Codex handoff flows",
+    "agents": {
+      "Grok": { "role": "Strategy, architecture, direction", "color": "#bc8cff" },
+      "Claude Code": { "role": "Implementation, orchestration, git", "color": "#58a6ff" },
+      "Codex": { "role": "Bounded code-gen sub-tasks", "color": "#3fb950" },
+      "Hermes": { "role": "Telegram gateway, capture, reminders", "color": "#d29922" }
+    },
+    "statuses": {
+      "dispatched": "Sent, Claude Code has it",
+      "in_progress": "Active work underway",
+      "delegating": "Sub-task sent to Codex",
+      "delegated": "Codex has it",
+      "returning": "Codex done, back to Claude Code",
+      "closed": "Fully complete",
+      "blocked": "Stuck, needs input"
+    }
+  }
+}

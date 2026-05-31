@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — griffithee</title>
+  <meta name="description" content="Who I am, what I'm building, and why.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">griffith<span>ee</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+
+    <header class="page-header">
+      <div class="page-header-eyebrow">About</div>
+      <h1 class="page-header-title">Hi, I'm Gene.</h1>
+      <p class="page-header-desc">
+        I build things with AI — mostly for myself, mostly because I find the
+        problems interesting and the tools surprisingly capable.
+      </p>
+    </header>
+
+    <section class="section">
+      <div class="highlight-row">
+
+        <div>
+          <h2 style="font-size:1.3rem;margin-bottom:var(--space-4);">What I'm doing</h2>
+          <p>
+            I'm exploring how far you can push AI agents as actual tools for
+            personal projects — not the demo version, not the marketing version,
+            but the version where you hand it a real task and see if it comes back
+            with something useful.
+          </p>
+          <p>
+            The projects here are things I use. SaveWisdom runs every morning.
+            The Discipline of Enough is a book I'm actually writing.
+            agent-brain runs the coordination layer this site was built with.
+          </p>
+          <p>
+            I'm less interested in "what can AI do?" as an abstract question and
+            more interested in "what changes when you actually integrate this into
+            real work?" — which turns out to be different and weirder and harder
+            to articulate.
+          </p>
+
+          <h2 style="font-size:1.3rem;margin-top:var(--space-8);margin-bottom:var(--space-4);">How this site was built</h2>
+          <p>
+            This site was built by Claude Code, operating autonomously in response
+            to a handoff from Grok. It designed the information architecture, wrote
+            all the code, delegated the chain visualizer component to Codex,
+            committed everything, and pushed to GitHub Pages — without me
+            doing any of the implementation work.
+          </p>
+          <p>
+            That's the system working as intended. I gave it a brief, it did the job.
+            Whether it did it well is something I'm looking at now.
+          </p>
+
+          <div class="callout" style="margin-top:var(--space-6);">
+            <div class="callout-label">Current focus</div>
+            <p style="margin-bottom:var(--space-2);">
+              Learning to work effectively with AI agents as a system — what makes
+              them actually useful vs. impressive-looking. Mostly through building
+              things and watching what breaks.
+            </p>
+            <p style="margin-bottom:0;">
+              Growing and developing, personally and professionally.
+              Using the available tech to increase quality of life in concrete, measurable ways.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" style="margin-bottom:var(--space-4);">
+            <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">The agent system</h4>
+            <div style="display:flex;flex-direction:column;gap:var(--space-4);">
+              <div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1);">
+                  <span class="agent-badge agent-grok">Grok</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">strategy &amp; architecture</span>
+                </div>
+                <p style="font-size:0.82rem;margin:0;">Deep work, structured plans, architectural decisions. The thinking agent.</p>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1);">
+                  <span class="agent-badge agent-claude">Claude Code</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">implementation &amp; orchestration</span>
+                </div>
+                <p style="font-size:0.82rem;margin:0;">Writes code, runs git, closes loops. The implementation agent.</p>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1);">
+                  <span class="agent-badge agent-codex">Codex</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">bounded code-gen</span>
+                </div>
+                <p style="font-size:0.82rem;margin:0;">Repo-aware sub-tasks delegated by Claude Code.</p>
+              </div>
+              <div>
+                <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1);">
+                  <span class="agent-badge agent-hermes">Hermes</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">telegram gateway</span>
+                </div>
+                <p style="font-size:0.82rem;margin:0;">Captures ideas, delivers prompts, alerts on completions. The ambient agent.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Find me</h4>
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+              <a href="https://github.com/griffithee" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:var(--space-2);font-size:0.875rem;color:var(--text-secondary);">
+                <span style="font-family:var(--font-mono);color:var(--accent-blue);">gh</span>
+                github.com/griffithee
+              </a>
+              <a href="mailto:eabfd1@gmail.com" style="display:flex;align-items:center;gap:var(--space-2);font-size:0.875rem;color:var(--text-secondary);">
+                <span style="font-family:var(--font-mono);color:var(--accent-blue);">@</span>
+                eabfd1@gmail.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">griffithee · built with Claude Code</span>
+    <div class="footer-links">
+      <a href="https://github.com/griffithee" target="_blank" rel="noopener">GitHub</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+</body>
+</html>

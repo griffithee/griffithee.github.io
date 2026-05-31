@@ -1,7 +1,267 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>griffithee — Building with AI</title>
+  <meta name="description" content="Personal site. AI tools, autonomous agents, and the projects I'm building with them.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">griffith<span>ee</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-eyebrow">building with AI · learning in public</div>
+      <h1 class="hero-title">
+        Using AI agents<br>for <em>real</em> personal projects.
+      </h1>
+      <p class="hero-desc">
+        Not demos. Not toy examples. I'm using Claude, Grok, and a small fleet of agents
+        to build things I actually use — a daily reflection coach, a book, automation
+        pipelines, and the coordination layer that ties them all together.
+      </p>
+      <div class="hero-cta">
+        <a href="projects.html" class="btn btn-primary">See the work</a>
+        <a href="experiments.html" class="btn btn-secondary">How the agents coordinate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured projects -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Projects</div>
+        <h2 class="section-title">What I'm building</h2>
+        <p class="section-desc">
+          Each of these is a real project I use or am actively developing — built with
+          AI assistance as a first-class part of the workflow.
+        </p>
+      </div>
+
+      <div class="card-grid">
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><a href="projects.html#savewisdom">SaveWisdom</a></div>
+            </div>
+            <span class="tag tag-green">production</span>
+          </div>
+          <p class="card-desc">
+            Daily reflection coach delivered via Telegram. One prompt a day, rooted in
+            stoic philosophy and behavior change. Running live — I use it every morning.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="agent-badge agent-hermes">Hermes</span>
+            <span class="tag tag-gray">Python</span>
+            <span class="tag tag-gray">Telegram</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><a href="projects.html#enough">The Discipline of Enough</a></div>
+            </div>
+            <span class="tag tag-blue">active</span>
+          </div>
+          <p class="card-desc">
+            A book-in-progress about navigating life's hard inflection points — career,
+            identity, enough-ness. AI delivers one story prompt per day via Telegram.
+            Phase 1 capture is active.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-grok">Grok</span>
+            <span class="agent-badge agent-hermes">Hermes</span>
+            <span class="tag tag-gray">Writing</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><a href="projects.html#agent-brain">agent-brain</a></div>
+            </div>
+            <span class="tag tag-blue">active</span>
+          </div>
+          <p class="card-desc">
+            The coordination layer that connects Hermes, Grok, Claude Code, and Codex.
+            Handoffs, chain tracking, watcher automation — the infrastructure behind
+            everything else. This site was built by it.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-grok">Grok</span>
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="agent-badge agent-codex">Codex</span>
+            <span class="tag tag-gray">Bash</span>
+            <span class="tag tag-gray">JSON</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><a href="projects.html#tax-autofill">tax-autofill</a></div>
+            </div>
+            <span class="tag tag-orange">prototype</span>
+          </div>
+          <p class="card-desc">
+            Python pipeline that reads tax documents and auto-fills a 1040 workbook.
+            Practical automation for a real annual pain point — built in a weekend with
+            Claude Code.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="tag tag-gray">Python</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title"><a href="projects.html#book-to-skill">book-to-skill</a></div>
+            </div>
+            <span class="tag tag-orange">prototype</span>
+          </div>
+          <p class="card-desc">
+            Converts technical books and docs into Claude Code skills. Trying to compress
+            expert knowledge into callable tools. Early stage but promising.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="tag tag-gray">Python</span>
+          </div>
+        </article>
+
+        <article class="card" style="border-style: dashed; opacity: 0.7;">
+          <div class="card-header">
+            <div>
+              <div class="card-title">gene-toolbox</div>
+            </div>
+            <span class="tag tag-gray">scaffolded</span>
+          </div>
+          <p class="card-desc">
+            Personal utility scripts and automation helpers. The scaffolding is there,
+            actual utilities are TBD as I hit recurring friction points.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="tag tag-gray">Python</span>
+            <span class="tag tag-gray">Bash</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div style="margin-top: var(--space-6);">
+        <a href="projects.html" class="btn btn-ghost">All projects →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active experiments highlight -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">Experiments</div>
+        <h2 class="section-title">How the agents coordinate</h2>
+        <p class="section-desc">
+          The most interesting ongoing experiment: using AI agents as a real system,
+          not just chat sessions. Handoffs, chain tracking, watcher automation.
+        </p>
+      </div>
+
+      <div class="highlight-row">
+        <div>
+          <div class="callout">
+            <div class="callout-label">Live system</div>
+            <p style="margin-bottom: var(--space-3);">
+              Grok sets direction. Claude Code implements. Codex handles bounded sub-tasks.
+              Hermes connects everything to Telegram. This site itself was built via that loop.
+            </p>
+            <p style="margin-bottom: 0;">
+              The chain registry tracks every Grok→Claude→Codex delegation. The interactive
+              visualizer on the Experiments page shows the actual chains.
+            </p>
+          </div>
+          <div style="margin-top: var(--space-4);">
+            <a href="experiments.html" class="btn btn-secondary">Explore the chain visualizer →</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-value">4</div>
+              <div class="stat-label">Active agents</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">3</div>
+              <div class="stat-label">Completed chains</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">1</div>
+              <div class="stat-label">Active chains</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">∞</div>
+              <div class="stat-label">Edge cases found</div>
+            </div>
+          </div>
+          <div class="timeline" style="margin-top: var(--space-6);">
+            <div class="timeline-item done">
+              <div class="timeline-date">May 30, 2026</div>
+              <div class="timeline-title">Strategy R resolved — registry lookup</div>
+              <div class="timeline-desc">Chain parent resolution now uses registry instead of fragile filename parsing.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">May 31, 2026</div>
+              <div class="timeline-title">Session limit detection live</div>
+              <div class="timeline-desc">Watcher detects usage limit hits, sends Telegram alert, auto-retries.</div>
+            </div>
+            <div class="timeline-item active">
+              <div class="timeline-date">May 31, 2026 — now</div>
+              <div class="timeline-title">Phase 1 website build</div>
+              <div class="timeline-desc">Claude Code building this site as orchestrator. You're looking at the output.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">griffithee · built with Claude Code</span>
+    <div class="footer-links">
+      <a href="https://github.com/griffithee" target="_blank" rel="noopener">GitHub</a>
+      <a href="about.html">About</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
 </body>
 </html>
