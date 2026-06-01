@@ -435,7 +435,7 @@
     player.x = view.midX || 480;
     player.y = (view.h || 720) - 64;
     formation = createFormation();
-    spawnDiveClock = 1.7;
+    spawnDiveClock = 1.1;
     seedStars();
     enemies.length = 0;
     if (fromUser) {
@@ -557,7 +557,7 @@
     state.waveMessage = `Wave ${wave}`;
     state.waveMessageTimer = 1.2;
     state.waveTransition = 0;
-    spawnDiveClock = rand(1.6, 2.6);
+    spawnDiveClock = rand(0.9, 1.6);
   }
 
   function slotPosition(enemy, startXOverride) {
@@ -602,7 +602,7 @@
       y: enemy.y + 10,
       w: 5,
       h: 14,
-      vy: 260 + state.wave * 24 + speedBoost,
+      vy: 340 + state.wave * 28 + speedBoost,
       owner: 'enemy',
     });
     sfx.enemyShoot();
@@ -661,7 +661,7 @@
     state.started = true;
     state.waveMessage = 'Game over';
     state.waveMessageTimer = 2.0;
-    showOverlay('Game over', `You reached wave ${state.wave} with ${formatScore(state.score)} points. Best run: ${formatScore(state.bestScore)}. The core loop is still tight enough to keep going, which is the whole point here.`, 'Run ended');
+    showOverlay('Game over', `You reached wave ${state.wave} with ${formatScore(state.score)} points. Best run: ${formatScore(state.bestScore)}.`, 'Run ended');
   }
 
   function formatScore(score) {
@@ -870,7 +870,7 @@
           startDive(diver);
         }
       }
-      spawnDiveClock = rand(1.25, 2.35) * clamp(1.08 - state.wave * 0.04, 0.55, 1.08);
+      spawnDiveClock = rand(0.85, 1.75) * clamp(1.08 - state.wave * 0.04, 0.55, 1.08);
     }
   }
 
