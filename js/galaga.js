@@ -43,6 +43,7 @@
     waveMessage: '',
     waveMessageTimer: 0,
     soundOn: true,
+    difficulty: 'medium',
   };
 
   const view = {
@@ -60,6 +61,13 @@
     pointerActive: false,
     pointerX: 0,
   };
+
+  const DIFFICULTY_PRESETS = {
+    easy:   { bulletBase: 270, bulletScale: 18, diveMin: 1.4, diveMax: 2.4, refillMin: 1.2, refillMax: 2.2, homingBase: 0.20, homingScale: 0.025, diveDurBase: 1.05, playerSpeed: 460 },
+    medium: { bulletBase: 340, bulletScale: 28, diveMin: 0.9, diveMax: 1.6, refillMin: 0.85, refillMax: 1.75, homingBase: 0.35, homingScale: 0.040, diveDurBase: 0.95, playerSpeed: 460 },
+    pro:    { bulletBase: 380, bulletScale: 34, diveMin: 0.65, diveMax: 1.2, refillMin: 0.60, refillMax: 1.30, homingBase: 0.45, homingScale: 0.055, diveDurBase: 0.88, playerSpeed: 460 },
+  };
+  function diff() { return DIFFICULTY_PRESETS[state.difficulty] || DIFFICULTY_PRESETS.medium; }
 
   const stars = [];
   const bullets = [];
@@ -90,7 +98,7 @@
       y: 0,
       w: 34,
       h: 24,
-      speed: 460,
+      speed: diff().playerSpeed,
       cooldown: 0,
       invuln: 0,
       blink: 0,
@@ -233,7 +241,7 @@
   function bindKeyboard() {
     window.addEventListener('keydown', (event) => {
       const key = event.key.toLowerCase();
-      if (['arrowleft', 'arrowright', ' ', 'spacebar', 'a', 'd', 'r', 'p', 'm'].includes(key)) {
+      if (['arrowleft', 'arrowright', ' ', 'spacebar', 'a', 'd', 'r', 'p', 'm', 'e', '1', '2', '3'].includes(key)) {
         event.preventDefault();
       }
 
@@ -252,7 +260,11 @@
         return;
       }
 
-      if (['arrowleft', 'arrowright', ' ', 'spacebar', 'a', 'd', 'r'].includes(key)) {
+      if (key === 'e' || key === '1') { state.difficulty = 'easy';   resetRun(true); return; }
+      if (key === '2')                { state.difficulty = 'medium'; resetRun(true); return; }
+      if (key === '3')                { state.difficulty = 'pro';    resetRun(true); return; }
+
+      if (['arrowleft', 'arrowright', ' ', 'spacebar', 'a', 'd'].includes(key)) {
         ensureStartedFromInput();
       }
 
@@ -536,7 +548,7 @@
           enterProgress: 0,
           diveProgress: 0,
           returnProgress: 0,
-          diveDuration: Math.max(0.55, 0.95 - wave * 0.045 + (isAce ? 0.08 : 0)),
+          diveDuration: Math.max(0.55, diff().diveDurBase - wave * 0.045 + (isAce ? 0.08 : 0)),
           returnDuration: 0.58 + wave * 0.02,
           shotTimer: rand(0.7, 2.1),
           shotBias: isAce ? 0.8 : 1,
@@ -557,7 +569,7 @@
     state.waveMessage = `Wave ${wave}`;
     state.waveMessageTimer = 1.2;
     state.waveTransition = 0;
-    spawnDiveClock = rand(0.9, 1.6);
+    spawnDiveClock = rand(diff().diveMin, diff().diveMax);
   }
 
   function slotPosition(enemy, startXOverride) {
@@ -571,7 +583,8 @@
   }
 
   function ensureStartedFromInput() {
-    if (!state.started || state.gameOver) {
+    if (state.gameOver) return;
+    if (!state.started) {
       resetRun(true);
       return;
     }
@@ -602,7 +615,7 @@
       y: enemy.y + 10,
       w: 5,
       h: 14,
-      vy: 340 + state.wave * 28 + speedBoost,
+      vy: diff().bulletBase + state.wave * diff().bulletScale + speedBoost,
       owner: 'enemy',
     });
     sfx.enemyShoot();
@@ -661,7 +674,7 @@
     state.started = true;
     state.waveMessage = 'Game over';
     state.waveMessageTimer = 2.0;
-    showOverlay('Game over', `You reached wave ${state.wave} with ${formatScore(state.score)} points. Best run: ${formatScore(state.bestScore)}.`, 'Run ended');
+    showOverlay('Game over', `You reached wave ${state.wave} with ${formatScore(state.score)} points. Best run: ${formatScore(state.bestScore)}.`, `Run ended · ${state.difficulty}`);
   }
 
   function formatScore(score) {
@@ -826,7 +839,7 @@
       } else if (enemy.state === 'diving') {
         enemy.diveProgress = Math.min(1, enemy.diveProgress + dt / enemy.diveDuration);
         // Light homing toward current player position (makes dives feel more dangerous)
-        const homingStrength = 0.35 + state.wave * 0.04;
+        const homingStrength = diff().homingBase + state.wave * diff().homingScale;
         enemy.targetX = lerp(enemy.targetX, clamp(player.x, 40, view.w - 40), dt * homingStrength);
         const t = easeInOutCubic(enemy.diveProgress);
         const arc = Math.sin(enemy.diveProgress * Math.PI) * enemy.arc;
@@ -870,7 +883,7 @@
           startDive(diver);
         }
       }
-      spawnDiveClock = rand(0.85, 1.75) * clamp(1.08 - state.wave * 0.04, 0.55, 1.08);
+      spawnDiveClock = rand(diff().refillMin, diff().refillMax) * clamp(1.08 - state.wave * 0.04, 0.55, 1.08);
     }
   }
 
@@ -883,7 +896,7 @@
     enemy.targetY = clamp(view.h * 0.82 + rand(-25, 25), view.h * 0.68, view.h - 55);
     enemy.diveProgress = 0;
     enemy.shotFired = false;
-    enemy.diveDuration = Math.max(0.55, 0.95 - state.wave * 0.045 + (enemy.type === 'ace' ? 0.08 : 0));
+    enemy.diveDuration = Math.max(0.55, diff().diveDurBase - state.wave * 0.045 + (enemy.type === 'ace' ? 0.08 : 0));
     enemy.arc = rand(-120, 120);
     sfx.dive();
   }
