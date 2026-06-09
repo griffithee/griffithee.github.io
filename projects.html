@@ -154,14 +154,14 @@
             <div class="detail-grid">
               <span class="detail-label">phase</span>
               <span class="detail-value">1 — raw story capture</span>
-              <span class="detail-label">prompts sent</span>
-              <span class="detail-value">2 of ~40 planned</span>
+              <span class="detail-label">captured</span>
+              <span class="detail-value">2 of ~40 planned prompts</span>
               <span class="detail-label">frequency</span>
               <span class="detail-value">1 prompt / day via Telegram</span>
               <span class="detail-label">storage</span>
               <span class="detail-value">agent-brain / Obsidian wiki</span>
               <span class="detail-label">status</span>
-              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>prompt 2 pending</span>
+              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>prompt 3 queued</span>
             </div>
           </div>
         </div>
@@ -230,6 +230,74 @@
                 <span class="agent-badge agent-hermes">Hermes</span>
                 <span style="font-size:0.82rem;color:var(--text-secondary);">Telegram gateway, capture, reminders</span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- quant -->
+    <section class="section" id="quant">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);">
+        <div>
+          <div class="section-label">Trading · Active Build</div>
+          <h2 class="section-title">quant</h2>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="agent-badge agent-hermes">Hermes</span>
+            <span class="tag tag-gray">Python</span>
+            <span class="tag tag-blue">active</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div>
+          <p>
+            A three-account algorithmic trading system: a trading account running
+            swing and day stacks, a wheel account selling covered options cycles,
+            and a long-term vault account. Each account has a defined role and
+            profits cascade from one to the next by rule, not by mood.
+          </p>
+          <p>
+            Every stack is a three-layer timeframe configuration — trend filter,
+            setup chart, entry trigger — with strict, written rules for entries and
+            exits. The rules live in architecture decision records in the repo, and
+            the backtests are reproducible from the committed scripts.
+          </p>
+          <p>
+            It runs as a paper simulation first: an hourly scan sends entry and exit
+            signals through Hermes to Telegram, building a verifiable track record
+            before any real money moves. Broker API wiring is the next milestone.
+          </p>
+          <div style="margin-top:var(--space-4);">
+            <div class="callout">
+              <div class="callout-label">The discipline angle</div>
+              <p style="margin-bottom:0;font-size:0.875rem;">
+                The system's job is to remove discretion. Backtest the rules,
+                paper-trade the rules, then follow the rules — the agents handle
+                scanning and notification so the human only handles judgment calls
+                the rules don't cover.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Stack</h4>
+            <div class="detail-grid">
+              <span class="detail-label">accounts</span>
+              <span class="detail-value">trading · wheel · vault</span>
+              <span class="detail-label">stacks</span>
+              <span class="detail-value">swing, swing_3tf, day</span>
+              <span class="detail-label">signals</span>
+              <span class="detail-value">hourly paper scan → Telegram</span>
+              <span class="detail-label">runtime</span>
+              <span class="detail-value">Python, WSL, cron</span>
+              <span class="detail-label">status</span>
+              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>paper trading</span>
             </div>
           </div>
         </div>
