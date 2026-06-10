@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
-  <title>Arcade Run — griffithee</title>
-  <meta name="description" content="A Galaga-style fixed shooter built in vanilla HTML, CSS, and JavaScript.">
+  <title>Evolution Arena — griffithee</title>
+  <meta name="description" content="40 agents learn to navigate using neural networks and a genetic algorithm. Runs entirely in your browser — no API, no server.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
@@ -30,96 +30,85 @@
 <main>
   <div class="container">
     <header class="page-header game-header">
-      <div class="page-header-eyebrow">Arcade experiment · phase 1</div>
-      <h1 class="page-header-title">Hold the lane. Break the formation.</h1>
+      <div class="page-header-eyebrow">AI experiment · neuroevolution</div>
+      <h1 class="page-header-title">40 agents. One goal. No instructions.</h1>
       <p class="page-header-desc">
-        A small Galaga-style fixed shooter: move left and right, fire up the screen,
-        survive dive attacks, and clear waves before the pressure closes in.
+        Each agent has a tiny neural network for a brain. None of them know what
+        food is. Watch them figure it out — one generation at a time.
       </p>
     </header>
 
     <section class="game-layout">
       <div class="game-stage-card">
         <div class="game-topbar">
-          <div class="game-pill"><span>Score</span><strong id="hud-score">000000</strong></div>
-          <div class="game-pill"><span>Lives</span><strong id="hud-lives">3</strong></div>
-          <div class="game-pill"><span>Wave</span><strong id="hud-wave">1</strong></div>
-          <div class="game-pill"><span>Best</span><strong id="hud-best">000000</strong></div>
-          <div class="game-pill"><span>Enemies</span><strong id="hud-remaining">12</strong></div>
-          <button class="game-pill game-pill-button" id="sound-toggle" type="button">Sound on</button>
-          <button class="game-pill game-pill-button" id="restart-run" type="button">Restart</button>
+          <div class="game-pill"><span>Gen</span><strong id="hud-gen">1</strong></div>
+          <div class="game-pill"><span>Best this gen</span><strong id="hud-best">0</strong></div>
+          <div class="game-pill"><span>All-time best</span><strong id="hud-best-ever">0</strong></div>
+          <div class="game-pill"><span>Next gen in</span><strong id="hud-timer">12.0s</strong></div>
+          <button class="game-pill game-pill-button speed-btn active" type="button" data-speed="0">1×</button>
+          <button class="game-pill game-pill-button speed-btn" type="button" data-speed="1">5×</button>
+          <button class="game-pill game-pill-button speed-btn" type="button" data-speed="2">20×</button>
         </div>
 
         <div class="game-canvas-shell">
-          <canvas id="game-canvas" aria-label="Galaga-style fixed shooter"></canvas>
-          <div class="game-overlay visible" id="game-overlay">
-            <div class="game-overlay-panel">
-              <div class="game-overlay-kicker">Keyboard first, touch playable</div>
-              <h2>Press Space or tap to launch</h2>
-              <p>
-                Arrows or A / D move. Space, click, or tap fires. The on-screen buttons
-                work on touch. Press M to mute and R to restart.
-              </p>
-              <div class="game-overlay-actions">
-                <button class="btn btn-primary" id="start-run" type="button">Start run</button>
-                <a class="btn btn-secondary" href="#controls">How to play</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mobile-controls" aria-label="Touch controls">
-          <button type="button" class="touch-control" data-control="left">Left</button>
-          <button type="button" class="touch-control touch-fire" data-control="fire">Fire</button>
-          <button type="button" class="touch-control" data-control="right">Right</button>
+          <canvas id="game-canvas" aria-label="Neuroevolution arena: 40 agents navigating toward food"></canvas>
         </div>
       </div>
 
       <aside class="game-sidebar">
-        <div class="game-note" id="controls">
-          <div class="game-note-title">Controls</div>
+        <div class="game-note">
+          <div class="game-note-title">What you're watching</div>
+          <p>
+            40 triangles, each controlled by a neural network with 8 inputs and 8 hidden nodes.
+            The inputs are wall proximity sensors and the direction and distance to the nearest
+            food pellet. The outputs are turn rate and thrust.
+          </p>
+          <p>
+            No agent is told what food is, or that it should move toward it. That behavior
+            has to emerge from selection pressure alone.
+          </p>
+        </div>
+
+        <div class="game-note">
+          <div class="game-note-title">How it evolves</div>
           <div class="game-list">
             <div class="game-list-item">
-              <span class="game-key">← →</span>
-              <p>Slide the ship left and right.</p>
+              <span class="game-key">Score</span>
+              <p>Food eaten × 200. Time alive is a tie-breaker.</p>
             </div>
             <div class="game-list-item">
-              <span class="game-key">Space</span>
-              <p>Fire upward. Keep the lane open.</p>
+              <span class="game-key">Select</span>
+              <p>Top 30% become parents. Bottom 70% are replaced each generation.</p>
             </div>
             <div class="game-list-item">
-              <span class="game-key">M</span>
-              <p>Toggle sound. The tones are simple and deliberately short.</p>
+              <span class="game-key">Crossover</span>
+              <p>Each child's 90 weights are drawn randomly from two parents.</p>
             </div>
             <div class="game-list-item">
-              <span class="game-key">R</span>
-              <p>Restart immediately after a rough run.</p>
+              <span class="game-key">Mutate</span>
+              <p>12% of weights get a random nudge. Top 2 carry over unchanged.</p>
             </div>
           </div>
         </div>
 
         <div class="game-note">
-          <div class="game-note-title">What this phase includes</div>
-          <p>
-            A formation that enters from above, breaks into dive attacks, shoots back,
-            awards points, tracks lives, and ramps difficulty wave by wave.
-          </p>
-          <p>
-            No tractor beam, no boss fights, no long menu flow. Just the loop.
-          </p>
+          <div class="game-note-title">What to watch for</div>
+          <p><strong style="color:var(--text-primary)">Gen 1–5:</strong> Random wandering. Food is eaten by accident.</p>
+          <p><strong style="color:var(--text-primary)">Gen 10–20:</strong> The blue leader starts orienting toward food. Others follow.</p>
+          <p style="margin-bottom:0"><strong style="color:var(--text-primary)">Gen 30+:</strong> Efficient navigation. Watch the trails curve toward pellets.</p>
         </div>
 
         <div class="game-note">
-          <div class="game-note-title">Update ritual</div>
+          <div class="game-note-title">Colors</div>
           <p>
-            Tweak <code>js/galaga.js</code>, play a few waves, run a syntax check, then
-            push to <code>master</code> so GitHub Pages can redeploy.
+            <span style="color:#58a6ff">Blue</span> — current leader (highest score this generation).<br>
+            <span style="color:#39d353">Green</span> — top quarter.<br>
+            <span style="color:#8b949e">Gray</span> — middle.<br>
+            <span style="color:#484f58">Dim</span> — bottom quarter.
           </p>
-          <p>
-            Best score is stored locally so the run keeps a little memory between refreshes.
-          </p>
-          <p style="margin-bottom:0;">
-            For repo-side controls and the edit checklist, see <a href="PLAY.md">PLAY.md</a>.
+          <p style="margin-bottom:0">
+            Hit <strong>20×</strong> to skip ahead. Generations that look boring usually
+            aren't — the interesting jumps happen fast.
           </p>
         </div>
       </aside>
@@ -129,7 +118,7 @@
 
 <footer>
   <div class="footer-inner">
-    <span class="footer-text">griffithee · built with vanilla JS</span>
+    <span class="footer-text">griffithee · neuroevolution in vanilla JS</span>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="experiments.html">Experiments</a>
@@ -138,6 +127,6 @@
 </footer>
 
 <script src="js/nav.js"></script>
-<script src="js/galaga.js"></script>
+<script src="js/evolution.js"></script>
 </body>
 </html>
