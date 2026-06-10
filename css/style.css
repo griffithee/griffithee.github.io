@@ -706,6 +706,9 @@ nav {
   color: var(--text-primary);
   background: rgba(88, 166, 255, 0.08);
   transition: border-color 0.15s, color 0.15s, background 0.15s;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .game-pill-button:hover {

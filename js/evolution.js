@@ -221,8 +221,8 @@
                 : rankFrac < 0.60  ? '#8b949e'
                 : '#484f58';
 
-    // Size grows with food (1× base → up to 2×); dying agents also shrink
-    const scale = Math.min(2.0, 1 + c.food * 0.3) * dyingFrac;
+    // Size grows with food (1× base → up to 2.2×); dying agents also shrink
+    const scale = Math.min(2.2, 1 + c.food * 0.6) * dyingFrac;
     const r     = CREATURE_R * scale;
 
     // Trail
@@ -312,22 +312,29 @@
 
   // Speed buttons
   document.querySelectorAll('.speed-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
+    function setSpeed(e) {
+      e.preventDefault();
       speedIdx = parseInt(btn.dataset.speed, 10);
       document.querySelectorAll('.speed-btn').forEach((b, i) => {
         b.classList.toggle('active', i === speedIdx);
       });
-    });
+    }
+    btn.addEventListener('touchstart', setSpeed, { passive: false });
+    btn.addEventListener('click', setSpeed);
   });
 
-  // Pause / resume
+  // Pause / resume — touchstart + preventDefault bypasses mobile's 300ms delay
+  // and prevents scroll-capture from swallowing the tap in the topbar
   const pauseBtn = document.getElementById('btn-pause');
   if (pauseBtn) {
-    pauseBtn.addEventListener('click', () => {
+    function togglePause(e) {
+      e.preventDefault();
       paused = !paused;
       pauseBtn.textContent = paused ? 'Resume' : 'Pause';
       pauseBtn.classList.toggle('active', paused);
-    });
+    }
+    pauseBtn.addEventListener('touchstart', togglePause, { passive: false });
+    pauseBtn.addEventListener('click', togglePause);
   }
 
   // Click canvas to drop a food pellet
