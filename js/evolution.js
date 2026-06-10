@@ -24,6 +24,8 @@
   const MUTATE_RATE   = 0.12;
   const MUTATE_MAG    = 0.35;
   const SPEEDS        = [1, 5, 20];
+  const DEATH_GRACE   = GEN_SECS * 0.35; // seconds before zero-food agent starts dying
+  const DEATH_FADE    = 2.0;              // seconds to fully fade out after grace expires
 
   // Weight layout offsets
   const W_SIZE = 90;
@@ -71,9 +73,11 @@
       ang:   Math.random() * Math.PI * 2,
       spd:   0,
       w:     weights || randomWeights(),
-      food:  0,
-      time:  0,
-      trail: [],
+      food:       0,
+      time:       0,
+      trail:      [],
+      dead:       false,
+      deathTimer: DEATH_FADE,
     };
   }
 
@@ -109,13 +113,18 @@
 
   // Returns true if food was eaten this step
   function stepCreature(c, dt, foods, W, H) {
+    if (c.dead) return false;
     c.time += dt;
     const out = netForward(c.w, sense(c, foods, W, H));
 
     // out[0] → turn rate (−1..1), out[1] → thrust (tanh, mapped to 0..1)
+    // Winners get a higher top speed; zero-food agents are capped at 60% normal
+    const topSpeed = c.food > 0
+      ? 2.2 * Math.min(1.8, 1 + c.food * 0.15)
+      : 2.2 * 0.6;
     c.ang += out[0] * 0.10;
     const thrust = (out[1] + 1) * 0.5;
-    c.spd += (thrust * 2.2 - c.spd) * 0.12;
+    c.spd += (thrust * topSpeed - c.spd) * 0.12;
 
     c.x += Math.cos(c.ang) * c.spd;
     c.y += Math.sin(c.ang) * c.spd;
@@ -199,11 +208,22 @@
   }
 
   function drawCreature(ctx, c, rankFrac, isLeader) {
-    const alpha = isLeader ? 1.0 : Math.max(0.18, 0.9 - rankFrac * 0.72);
-    const color = isLeader   ? '#58a6ff'
-                : rankFrac < 0.25 ? '#39d353'
-                : rankFrac < 0.60 ? '#8b949e'
+    // Dying agents fade out over DEATH_FADE seconds; skip once fully dead
+    if (c.dead) return;
+    const dyingFrac = (c.food === 0 && c.deathTimer < DEATH_FADE)
+      ? c.deathTimer / DEATH_FADE   // 1→0 as agent approaches death
+      : 1;
+
+    const baseAlpha = isLeader ? 1.0 : Math.max(0.18, 0.9 - rankFrac * 0.72);
+    const alpha = baseAlpha * dyingFrac;
+    const color = isLeader         ? '#58a6ff'
+                : rankFrac < 0.25  ? '#39d353'
+                : rankFrac < 0.60  ? '#8b949e'
                 : '#484f58';
+
+    // Size grows with food (1× base → up to 2×); dying agents also shrink
+    const scale = Math.min(2.0, 1 + c.food * 0.3) * dyingFrac;
+    const r     = CREATURE_R * scale;
 
     // Trail
     if (c.trail.length > 2) {
@@ -223,9 +243,9 @@
     ctx.globalAlpha = alpha;
     ctx.fillStyle   = color;
     ctx.beginPath();
-    ctx.moveTo( CREATURE_R,         0);
-    ctx.lineTo(-CREATURE_R * 0.6, -CREATURE_R * 0.55);
-    ctx.lineTo(-CREATURE_R * 0.6,  CREATURE_R * 0.55);
+    ctx.moveTo( r,         0);
+    ctx.lineTo(-r * 0.6, -r * 0.55);
+    ctx.lineTo(-r * 0.6,  r * 0.55);
     ctx.closePath();
     ctx.fill();
     ctx.restore();
@@ -341,6 +361,11 @@
         genTime += dt;
         for (const c of creatures) {
           if (stepCreature(c, dt, foods, W, H)) foods.push(randomFood());
+          // Kill off zero-food agents after the grace period
+          if (!c.dead && c.food === 0 && c.time > DEATH_GRACE) {
+            c.deathTimer -= dt;
+            if (c.deathTimer <= 0) c.dead = true;
+          }
         }
         if (genTime >= GEN_SECS) { startGen(); break; }
       }
@@ -372,10 +397,18 @@
       }
     }
 
-    // Sort ascending so leader draws on top
-    const sorted = creatures.slice().sort((a, b) => fitness(a) - fitness(b));
+    // Sort ascending so leader draws on top; dead agents sort to the bottom
+    const sorted = creatures.slice().sort((a, b) => {
+      if (a.dead !== b.dead) return a.dead ? -1 : 1;
+      return fitness(a) - fitness(b);
+    });
+    const aliveCount = sorted.filter(c => !c.dead).length || 1;
+    let aliveIdx = 0;
     for (let i = 0; i < sorted.length; i++) {
-      drawCreature(ctx, sorted[i], i / sorted.length, i === sorted.length - 1);
+      const rankFrac = sorted[i].dead ? 1 : aliveIdx / aliveCount;
+      const isLeader = !sorted[i].dead && aliveIdx === aliveCount - 1;
+      if (!sorted[i].dead) aliveIdx++;
+      drawCreature(ctx, sorted[i], rankFrac, isLeader);
     }
 
     updateHUD();
