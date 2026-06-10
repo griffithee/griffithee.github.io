@@ -36,6 +36,8 @@ python3 scripts/refresh-chains.py
 
 This reads `agent-brain/watcher/chain-registry.json` and regenerates `data/chains.json`.
 
+**Source discipline**: See `agent-brain/projects/autonomous-goal-execution/OPERATING-DISCIPLINE.md` (Public visibility decision) and `agent-brain/watcher/README.md` (Public Chain Visualizer Curation). The registry is intentionally curated — not every handoff is added.
+
 **Verify:** open `data/chains.json` and confirm the root count and descriptions look right.
 
 If the registry path differs from the default (`/mnt/c/Users/eabfd/agent-brain`):
