@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-31",
+  "updated": "2026-06-10",
   "projects": [
     {
       "id": "savewisdom",
@@ -35,20 +35,20 @@
       "id": "personal-website",
       "name": "griffithee.github.io",
       "type": "project",
-      "status": "active",
-      "tags": ["active", "infrastructure"],
+      "status": "complete",
+      "tags": ["complete", "shipped", "infrastructure"],
       "agents": ["Grok", "Claude", "Codex"],
-      "desc": "This site. Built autonomously across 3 phases. Chain visualizer shows real delegation chains.",
+      "desc": "This site. Built autonomously across 3 phases with delegation, Codex QA, and post-delivery fixes. Now in maintenance mode with live data refresh + <20min update ritual.",
       "link": "experiments.html#chain-visualizer"
     },
     {
-      "id": "arcade-run",
-      "name": "Arcade Run",
+      "id": "neuroevolution-arena",
+      "name": "Evolution Arena",
       "type": "experiment",
       "status": "active",
       "tags": ["active", "experiment"],
-      "agents": ["Codex", "Claude"],
-      "desc": "Galaga-style fixed shooter in vanilla Canvas. The phase 1 test is all about feel, not feature count.",
+      "agents": ["Claude"],
+      "desc": "40 neural-net agents evolved by a genetic algorithm, entirely in browser. No API cost. Competition mechanics: winners grow, laggards die.",
       "link": "game.html"
     },
     {

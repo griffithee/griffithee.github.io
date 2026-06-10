@@ -256,21 +256,21 @@
       <div class="highlight-row">
         <div>
           <p>
-            A three-account algorithmic trading system: a trading account running
-            swing and day stacks, a wheel account selling covered options cycles,
-            and a long-term vault account. Each account has a defined role and
-            profits cascade from one to the next by rule, not by mood.
+            A systematic options income system built around the Wheel strategy —
+            selling cash-secured puts on quality equities, taking assignment, then
+            selling covered calls until the position exits. Each cycle is defined
+            by written rules. No discretion on entries or exits.
           </p>
           <p>
-            Every stack is a three-layer timeframe configuration — trend filter,
-            setup chart, entry trigger — with strict, written rules for entries and
-            exits. The rules live in architecture decision records in the repo, and
-            the backtests are reproducible from the committed scripts.
+            The trend-trading stacks (swing, day, multi-timeframe) were shelved
+            after backtesting: post-cost returns showed no reliable edge over
+            buy-and-hold. ADR 0006 documents the decision. The Wheel survives the
+            same test — premium income is the return, not price prediction.
           </p>
           <p>
-            It runs as a paper simulation first: an hourly scan sends entry and exit
-            signals through Hermes to Telegram, building a verifiable track record
-            before any real money moves. Broker API wiring is the next milestone.
+            Hermes sends entry signals and cycle updates via Telegram. The rules
+            live in architecture decision records in the repo. Paper trading first —
+            a verifiable track record before real money moves.
           </p>
           <div style="margin-top:var(--space-4);">
             <div class="callout">
@@ -288,12 +288,12 @@
           <div class="card">
             <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Stack</h4>
             <div class="detail-grid">
-              <span class="detail-label">accounts</span>
-              <span class="detail-value">trading · wheel · vault</span>
-              <span class="detail-label">stacks</span>
-              <span class="detail-value">swing, swing_3tf, day</span>
+              <span class="detail-label">strategy</span>
+              <span class="detail-value">Wheel (CSP → CC cycles)</span>
+              <span class="detail-label">shelved</span>
+              <span class="detail-value">trend stacks (ADR 0006)</span>
               <span class="detail-label">signals</span>
-              <span class="detail-value">hourly paper scan → Telegram</span>
+              <span class="detail-value">scan + cycle alerts → Telegram</span>
               <span class="detail-label">runtime</span>
               <span class="detail-value">Python, WSL, cron</span>
               <span class="detail-label">status</span>
@@ -315,18 +315,18 @@
 
       <div class="card-grid">
 
-        <article class="card" id="arcade-run">
+        <article class="card" id="evolution-arena">
           <div class="card-header">
-            <div class="card-title">Arcade Run</div>
-            <span class="tag tag-orange">new</span>
+            <div class="card-title">Evolution Arena</div>
+            <span class="tag tag-blue">live</span>
           </div>
           <p class="card-desc">
-            Galaga-style fixed shooter built in vanilla Canvas. Player ship, formation
-            enemies, dive attacks, collision, score, lives, and a lightweight sound
-            layer. The whole point is the feel.
+            40 triangles, each driven by a tiny neural network. A genetic algorithm
+            runs every generation — top 30% breed, losers fade and die. No API cost:
+            trains from random weights in your browser. Click to place food, hit 20×
+            to skip ahead.
           </p>
           <div class="card-meta">
-            <span class="agent-badge agent-codex">Codex</span>
             <span class="agent-badge agent-claude">Claude</span>
             <span class="tag tag-gray">Canvas</span>
             <span class="tag tag-gray">JS</span>
