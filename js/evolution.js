@@ -248,13 +248,15 @@
     canvas.height = H;
   }
 
-  let creatures = [];
-  let foods     = [];
-  let gen       = 0;
-  let bestEver  = 0;
-  let bestGen   = 0;
-  let genTime   = 0;
-  let speedIdx  = 0;
+  let creatures  = [];
+  let foods      = [];
+  let gen        = 0;
+  let bestEver   = 0;
+  let bestGen    = 0;
+  let genTime    = 0;
+  let speedIdx   = 0;
+  let paused     = false;
+  let clickFlash = null; // {x, y, startTs} — ripple on food drop
 
   function randomFood() {
     const m = 28;
@@ -298,6 +300,26 @@
     });
   });
 
+  // Pause / resume
+  const pauseBtn = document.getElementById('btn-pause');
+  if (pauseBtn) {
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+      pauseBtn.classList.toggle('active', paused);
+    });
+  }
+
+  // Click canvas to drop a food pellet
+  canvas.style.cursor = 'crosshair';
+  canvas.addEventListener('click', (e) => {
+    const rect  = canvas.getBoundingClientRect();
+    const x     = (e.clientX - rect.left) * (W / rect.width);
+    const y     = (e.clientY - rect.top)  * (H / rect.height);
+    foods.push({ x, y });
+    clickFlash = { x, y, startTs: e.timeStamp };
+  });
+
   window.addEventListener('resize', () => {
     resize();
     foods = foods.map(() => randomFood());
@@ -314,12 +336,14 @@
     const steps = SPEEDS[speedIdx];
     const dt    = rawDt / steps;
 
-    for (let s = 0; s < steps; s++) {
-      genTime += dt;
-      for (const c of creatures) {
-        if (stepCreature(c, dt, foods, W, H)) foods.push(randomFood());
+    if (!paused) {
+      for (let s = 0; s < steps; s++) {
+        genTime += dt;
+        for (const c of creatures) {
+          if (stepCreature(c, dt, foods, W, H)) foods.push(randomFood());
+        }
+        if (genTime >= GEN_SECS) { startGen(); break; }
       }
-      if (genTime >= GEN_SECS) { startGen(); break; }
     }
 
     // Render
@@ -331,6 +355,22 @@
     ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
 
     for (const f of foods) drawFood(ctx, f);
+
+    // Click ripple
+    if (clickFlash) {
+      const age = (ts - clickFlash.startTs) / 500;
+      if (age > 1) {
+        clickFlash = null;
+      } else {
+        ctx.globalAlpha = (1 - age) * 0.75;
+        ctx.strokeStyle = '#3fb950';
+        ctx.lineWidth   = 2;
+        ctx.beginPath();
+        ctx.arc(clickFlash.x, clickFlash.y, FOOD_R + age * FOOD_R * 3, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+    }
 
     // Sort ascending so leader draws on top
     const sorted = creatures.slice().sort((a, b) => fitness(a) - fitness(b));
