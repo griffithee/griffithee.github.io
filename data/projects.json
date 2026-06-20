@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-10",
+  "updated": "2026-06-20",
   "projects": [
     {
       "id": "savewisdom",
@@ -8,7 +8,7 @@
       "status": "production",
       "tags": ["production", "active"],
       "agents": ["Claude", "Hermes"],
-      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. Running live every morning.",
+      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. 99 questions answered and archived. Running live every morning.",
       "link": "projects.html#savewisdom"
     },
     {
@@ -60,6 +60,16 @@
       "agents": ["Claude"],
       "desc": "Python pipeline to auto-fill a 1040 workbook from tax documents. Built in a weekend. Works.",
       "link": "projects.html#tax-autofill"
+    },
+    {
+      "id": "vault-maintenance",
+      "name": "vault-maintenance",
+      "type": "project",
+      "status": "active",
+      "tags": ["active", "infrastructure"],
+      "agents": ["Claude", "Hermes"],
+      "desc": "Weekly automated health checks for the Obsidian knowledge vault. Detects broken wikilinks, orphaned notes, frontmatter drift, and book summary gaps. Runs Sunday mornings via Hermes cron.",
+      "link": "projects.html#vault-maintenance"
     },
     {
       "id": "gene-toolbox",
