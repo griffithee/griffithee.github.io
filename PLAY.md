@@ -1,30 +1,28 @@
-# Arcade Run Play Notes
+# Evolution Arena Play Notes
 
 ## Controls
 
-- `Left` / `Right` arrows or `A` / `D`: move.
-- `Space`: fire.
-- `M`: toggle sound.
-- `R`: restart.
-- On touch, the left/right/fire buttons work and the canvas can be dragged to steer.
-- Best score is stored locally in the browser.
+- `1x`, `5x`, `20x`: change simulation speed.
+- `Pause` / `Resume`: stop or restart the simulation loop.
+- Click or tap the arena to drop a food pellet.
+- Refresh the page to restart from random neural-network weights.
 
 ## Update Ritual
 
-1. Edit `js/galaga.js` and/or `game.html`.
-2. Play through at least a couple of waves and check whether the loop still feels fair.
+1. Edit `js/evolution.js` and/or `game.html`.
+2. Run several generations at `20x` and confirm agents, food, HUD values, and generation rollover still behave correctly.
 3. Run a syntax check:
 
 ```bash
-node --check js/galaga.js
+node --check js/evolution.js
 ```
 
 4. Confirm the homepage and project browser still link to the game.
 5. Commit to `master` and push. GitHub Pages deploys from that branch.
 
-## Phase 1 Scope
+## Current Scope
 
-- Player ship movement and shooting.
-- Formation enemies with dive attacks and return-to-grid behavior.
-- Score, lives, wave progression, and simple sound.
-- No tractor beam, no bosses, no long progression layer.
+- 40 agents controlled by tiny neural networks.
+- Genetic algorithm with top-parent selection, crossover, mutation, and elite carryover.
+- Food placement, speed controls, pause/resume, and live HUD.
+- No backend, API calls, persistence, or pre-trained model.
