@@ -22,6 +22,7 @@
     production: 'production',
     prototype: 'prototype',
     writing: 'writing',
+    fitness: 'fitness',
     infrastructure: 'infrastructure',
     experiment: 'experiment',
   };
@@ -72,7 +73,7 @@
   function collectTags(projects) {
     var seen = Object.create(null);
     seen.all = true;
-    var order = ['all', 'active', 'production', 'prototype', 'writing', 'infrastructure', 'experiment'];
+    var order = ['all', 'active', 'production', 'prototype', 'writing', 'fitness', 'infrastructure', 'experiment'];
     var extra = [];
     projects.forEach(function (p) {
       var item = p && typeof p === 'object' ? p : {};

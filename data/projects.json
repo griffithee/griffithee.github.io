@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-20",
+  "updated": "2026-06-28",
   "projects": [
     {
       "id": "savewisdom",
@@ -8,17 +8,27 @@
       "status": "production",
       "tags": ["production", "active"],
       "agents": ["Claude", "Hermes"],
-      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. 99 questions answered and archived. Running live every morning.",
+      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. 103 questions answered and archived. Running live every morning.",
       "link": "projects.html#savewisdom"
     },
     {
+      "id": "fitness-tracker",
+      "name": "fitness-tracker",
+      "type": "project",
+      "status": "production",
+      "tags": ["production", "active", "fitness"],
+      "agents": ["Claude", "Codex", "Hermes"],
+      "desc": "Telegram-first fitness logging for meals, workouts, body weight, macro targets, noon tickles, and nightly reports. Scripts, crons, and Hermes skill are live; InBody scan metadata import is still pending.",
+      "link": "projects.html#fitness-tracker"
+    },
+    {
       "id": "enough",
-      "name": "The Discipline of Enough",
+      "name": "No Longer Average",
       "type": "project",
       "status": "active",
       "tags": ["active", "writing"],
-      "agents": ["Grok", "Hermes"],
-      "desc": "Book in progress. Raw story capture phase — one prompt per day via Telegram. 2 of ~40 prompts sent.",
+      "agents": ["Grok", "Claude", "Hermes"],
+      "desc": "Book in progress. Phase 1 captured 12 of 12 seed fragments; Phase 2 structure is locked, the prologue is captured, and drafting starts next. Working title: No Longer Average.",
       "link": "projects.html#enough"
     },
     {

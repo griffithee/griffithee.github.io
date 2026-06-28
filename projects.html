@@ -96,9 +96,78 @@
               <span class="detail-label">runtime</span>
               <span class="detail-value">Python, WSL</span>
               <span class="detail-label">archive</span>
-              <span class="detail-value">99 questions answered</span>
+              <span class="detail-value">103 questions answered</span>
               <span class="detail-label">status</span>
               <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>running daily</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Fitness Tracker -->
+    <section class="section" id="fitness-tracker">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);">
+        <div>
+          <div class="section-label">Fitness · Production</div>
+          <h2 class="section-title">fitness-tracker</h2>
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="agent-badge agent-codex">Codex</span>
+            <span class="agent-badge agent-hermes">Hermes</span>
+            <span class="tag tag-gray">Python</span>
+            <span class="tag tag-gray">Telegram</span>
+            <span class="tag tag-green">production</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div>
+          <p>
+            fitness-tracker is a Telegram-first logging system for meals, workouts,
+            body weight, macro targets, and daily accountability. The core scripts,
+            Hermes skill, and cron jobs are deployed and live.
+          </p>
+          <p>
+            The point is low-friction capture: "log chicken 150g rice 200g", "bjj",
+            "crossfit 14:32 rx", or "weight 261.5" through Aegis. Hermes handles the
+            command routing, a noon tickle if nothing has been logged, and an 8pm
+            nightly report comparing plan, actuals, and tomorrow.
+          </p>
+          <p>
+            The current macro plan is wired from defaults. The full InBody scan metadata
+            import is still pending, so the system is live but not pretending the body
+            composition record is complete.
+          </p>
+          <div style="margin-top:var(--space-4);">
+            <div class="callout">
+              <div class="callout-label">What actually matters</div>
+              <p style="margin-bottom:0;font-size:0.875rem;">
+                The tracker lives where the behavior happens: Telegram. No separate app,
+                no dashboard ceremony, just quick capture and a daily feedback loop.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Runtime</h4>
+            <div class="detail-grid">
+              <span class="detail-label">logging</span>
+              <span class="detail-value">food, workouts, weight</span>
+              <span class="detail-label">delivery</span>
+              <span class="detail-value">Telegram via Aegis</span>
+              <span class="detail-label">automation</span>
+              <span class="detail-value">noon tickle + 8pm report</span>
+              <span class="detail-label">targets</span>
+              <span class="detail-value">3,066 cal · P217/C158/F174</span>
+              <span class="detail-label">open item</span>
+              <span class="detail-value">InBody metadata import</span>
+              <span class="detail-label">status</span>
+              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>scripts and crons live</span>
             </div>
           </div>
         </div>
@@ -111,10 +180,11 @@
     <section class="section" id="enough">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);">
         <div>
-          <div class="section-label">Writing · Phase 1 Active</div>
-          <h2 class="section-title">The Discipline of Enough</h2>
+          <div class="section-label">Writing · Phase 2 Drafting</div>
+          <h2 class="section-title">No Longer Average</h2>
           <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);">
             <span class="agent-badge agent-grok">Grok</span>
+            <span class="agent-badge agent-claude">Claude</span>
             <span class="agent-badge agent-hermes">Hermes</span>
             <span class="tag tag-gray">Writing</span>
             <span class="tag tag-blue">active</span>
@@ -130,22 +200,24 @@
             actually means.
           </p>
           <p>
-            The process: Grok designed a daily story prompt system. Hermes delivers
-            one prompt per day via Telegram. I respond in my own voice, stream of
-            consciousness. The system captures and stores the raw material. Editing
-            and structure come later.
+            The leading title is now "No Longer Average", with "The Discipline of Enough"
+            still doing subtitle and positioning work. The spine is a kid who was told
+            he wasn't enough, spent decades building proof that he was, retired at 44,
+            and still had to learn what enough actually feels like.
           </p>
           <p>
-            Phase 1 is raw capture only — no editing, no structure, just get the stories
-            out. This keeps me from getting stuck in craft before I have material.
+            Phase 1 is complete: 12 seed fragments captured, the structure spec locked,
+            the prologue captured, and the high-priority ROTC DQ plus IBP/brokerage gaps
+            closed. Phase 2 is drafting, one chapter at a time, with targeted prompts
+            only when a real scene gap appears.
           </p>
           <div style="margin-top:var(--space-4);">
             <div class="callout">
               <div class="callout-label">The autonomy angle</div>
               <p style="margin-bottom:0;font-size:0.875rem;">
-                Grok designed the prompt arc. Hermes manages the delivery schedule
-                and stores responses. I show up and write. The agents do the logistics
-                so I can focus on the actual hard part — telling the truth.
+                Grok helped shape the arc, Claude locked the structure and fragment map,
+                and Hermes keeps a light safety net available. The agents handle logistics
+                and memory so I can focus on the actual hard part — telling the truth.
               </p>
             </div>
           </div>
@@ -155,15 +227,15 @@
             <h4 style="margin-bottom:var(--space-4);color:var(--text-secondary);font-size:0.8rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:0.08em;">Progress</h4>
             <div class="detail-grid">
               <span class="detail-label">phase</span>
-              <span class="detail-value">1 — raw story capture</span>
+              <span class="detail-value">2 — structure execution</span>
               <span class="detail-label">captured</span>
-              <span class="detail-value">2 of ~40 planned prompts</span>
+              <span class="detail-value">12 of 12 Phase 1 fragments</span>
               <span class="detail-label">frequency</span>
-              <span class="detail-value">1 prompt / day via Telegram</span>
+              <span class="detail-value">on-demand targeted prompts only</span>
               <span class="detail-label">storage</span>
               <span class="detail-value">agent-brain / Obsidian wiki</span>
               <span class="detail-label">status</span>
-              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>prompt 3 queued</span>
+              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>draft prologue next</span>
             </div>
           </div>
         </div>
