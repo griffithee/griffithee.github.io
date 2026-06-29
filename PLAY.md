@@ -1,4 +1,8 @@
-# Evolution Arena Play Notes
+# Play Notes
+
+## Evolution Arena (`game.html`)
+
+Live experiment. See `js/evolution.js`.
 
 ## Controls
 

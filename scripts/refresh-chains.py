@@ -20,7 +20,17 @@ import re
 import sys
 from datetime import datetime, timezone
 
-AGENT_BRAIN_DEFAULT = "/mnt/c/Users/eabfd/agent-brain"
+def _default_agent_brain() -> str:
+    wsl = "/mnt/c/Users/eabfd/agent-brain"
+    if os.path.isdir(wsl):
+        return wsl
+    win = r"C:\Users\eabfd\agent-brain"
+    if os.path.isdir(win):
+        return win
+    return wsl
+
+
+AGENT_BRAIN_DEFAULT = _default_agent_brain()
 REGISTRY_DEFAULT = os.path.join(AGENT_BRAIN_DEFAULT, "watcher", "chain-registry.json")
 HANDOFFS_DEFAULT = os.path.join(AGENT_BRAIN_DEFAULT, "handoffs")
 SITE_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))

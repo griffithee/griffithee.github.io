@@ -92,7 +92,7 @@ Open the changed HTML files in a browser locally if you want to spot-check layou
 ```bash
 cd /mnt/c/Users/eabfd/griffithee.github.io
 git add data/chains.json data/projects.json experiments.html projects.html about.html
-git commit -m "Update site — refresh chains snapshot + project status"
+git commit -m "Claude Code: refresh chains snapshot + project status"
 git push
 ```
 

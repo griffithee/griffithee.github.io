@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'">
+  <title>Arcade Run (Archive) — griffithee</title>
+  <meta name="description" content="A Galaga-style fixed shooter built in vanilla HTML, CSS, and JavaScript.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="game-page">
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">griffith<span>ee</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="experiments.html">Experiments</a></li>
+      <li><a href="game.html">Game</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <header class="page-header game-header">
+      <div class="page-header-eyebrow">Archive · Galaga phase 1 complete</div>
+      <h1 class="page-header-title">Hold the lane. Break the formation.</h1>
+      <p class="page-header-desc" style="margin-top:var(--space-3);color:var(--text-muted);">
+        Live experiment moved to <a href="game.html">Evolution Arena</a>. This page preserves the shipped Galaga build for playtesting history.
+      </p>
+      <p class="page-header-desc">
+        A small Galaga-style fixed shooter: move left and right, fire up the screen,
+        survive dive attacks, and clear waves before the pressure closes in.
+      </p>
+    </header>
+
+    <section class="game-layout">
+      <div class="game-stage-card">
+        <div class="game-topbar">
+          <div class="game-pill"><span>Score</span><strong id="hud-score">000000</strong></div>
+          <div class="game-pill"><span>Lives</span><strong id="hud-lives">3</strong></div>
+          <div class="game-pill"><span>Wave</span><strong id="hud-wave">1</strong></div>
+          <div class="game-pill"><span>Best</span><strong id="hud-best">000000</strong></div>
+          <div class="game-pill"><span>Enemies</span><strong id="hud-remaining">12</strong></div>
+          <button class="game-pill game-pill-button" id="sound-toggle" type="button">Sound on</button>
+          <button class="game-pill game-pill-button" id="restart-run" type="button">Restart</button>
+        </div>
+
+        <div class="game-canvas-shell">
+          <canvas id="game-canvas" aria-label="Galaga-style fixed shooter"></canvas>
+          <div class="game-overlay visible" id="game-overlay">
+            <div class="game-overlay-panel">
+              <div class="game-overlay-kicker">Keyboard first, touch playable</div>
+              <h2>Press Space or tap to launch</h2>
+              <p>
+                Arrows or A / D move. Space, click, or tap fires. The on-screen buttons
+                work on touch. Press M to mute and R to restart.
+              </p>
+              <div class="game-overlay-actions">
+                <button class="btn btn-primary" id="start-run" type="button">Start run</button>
+                <a class="btn btn-secondary" href="#controls">How to play</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile-controls" aria-label="Touch controls">
+          <button type="button" class="touch-control" data-control="left">Left</button>
+          <button type="button" class="touch-control touch-fire" data-control="fire">Fire</button>
+          <button type="button" class="touch-control" data-control="right">Right</button>
+        </div>
+      </div>
+
+      <aside class="game-sidebar">
+        <div class="game-note" id="controls">
+          <div class="game-note-title">Controls</div>
+          <div class="game-list">
+            <div class="game-list-item">
+              <span class="game-key">← →</span>
+              <p>Slide the ship left and right.</p>
+            </div>
+            <div class="game-list-item">
+              <span class="game-key">Space</span>
+              <p>Fire upward. Keep the lane open.</p>
+            </div>
+            <div class="game-list-item">
+              <span class="game-key">M</span>
+              <p>Toggle sound. The tones are simple and deliberately short.</p>
+            </div>
+            <div class="game-list-item">
+              <span class="game-key">R</span>
+              <p>Restart immediately after a rough run.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="game-note">
+          <div class="game-note-title">What this phase includes</div>
+          <p>
+            A formation that enters from above, breaks into dive attacks, shoots back,
+            awards points, tracks lives, and ramps difficulty wave by wave.
+          </p>
+          <p>
+            No tractor beam, no boss fights, no long menu flow. Just the loop.
+          </p>
+        </div>
+
+        <div class="game-note">
+          <div class="game-note-title">Update ritual</div>
+          <p>
+            Tweak <code>js/galaga.js</code>, play a few waves, run a syntax check, then
+            push to <code>master</code> so GitHub Pages can redeploy.
+          </p>
+          <p>
+            Best score is stored locally so the run keeps a little memory between refreshes.
+          </p>
+          <p style="margin-bottom:0;">
+            For repo-side controls and the edit checklist, see <a href="PLAY.md">PLAY.md</a>.
+          </p>
+        </div>
+      </aside>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-text">griffithee · built with vanilla JS</span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="experiments.html">Experiments</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/nav.js"></script>
+<script src="js/galaga.js"></script>
+</body>
+</html>
