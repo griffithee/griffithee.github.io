@@ -412,7 +412,9 @@
     const aliveCount = sorted.filter(c => !c.dead).length || 1;
     let aliveIdx = 0;
     for (let i = 0; i < sorted.length; i++) {
-      const rankFrac = sorted[i].dead ? 1 : aliveIdx / aliveCount;
+      // Ascending sort puts the worst agent first, so invert: rankFrac 0 = best
+      // (green per the page legend), 1 = worst (dim)
+      const rankFrac = sorted[i].dead ? 1 : 1 - (aliveIdx + 1) / aliveCount;
       const isLeader = !sorted[i].dead && aliveIdx === aliveCount - 1;
       if (!sorted[i].dead) aliveIdx++;
       drawCreature(ctx, sorted[i], rankFrac, isLeader);
