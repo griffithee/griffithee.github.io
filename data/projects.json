@@ -29,7 +29,8 @@
       "tags": ["complete", "shipped", "writing"],
       "agents": ["Grok", "Claude", "Hermes"],
       "desc": "Published short book about choosing the right standard. Writing loop closed. Audiobook later, if ever.",
-      "link": "projects.html#enough"
+      "link": "projects.html#enough",
+      "amazon": "https://a.co/d/0ggR9za4"
     },
     {
       "id": "agent-brain",
