@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-12",
+  "updated": "2026-08-27",
   "projects": [
     {
       "id": "savewisdom",
@@ -8,7 +8,7 @@
       "status": "production",
       "tags": ["production", "active"],
       "agents": ["Claude", "Hermes"],
-      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. 143 questions answered and archived. Running live every morning.",
+      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. 156+ answers archived. Running live every morning.",
       "link": "projects.html#savewisdom"
     },
     {
@@ -39,8 +39,18 @@
       "status": "active",
       "tags": ["active", "infrastructure"],
       "agents": ["Grok", "Claude", "Codex", "Hermes"],
-      "desc": "Shared coordination repo for all four AI agents. Handoffs, chain registry, watcher, decisions.",
+      "desc": "Shared coordination repo for all four AI agents. Handoffs, chain registry, watcher, decisions. Private by design.",
       "link": "projects.html#agent-brain"
+    },
+    {
+      "id": "quant",
+      "name": "quant",
+      "type": "project",
+      "status": "active",
+      "tags": ["active", "trading"],
+      "agents": ["Claude", "Hermes"],
+      "desc": "Wheel-primary paper trading system. Trend stacks shelved (ADR 0006). Net-P&L journaling and checkpoint ops.",
+      "link": "projects.html#quant"
     },
     {
       "id": "personal-website",
@@ -49,7 +59,7 @@
       "status": "complete",
       "tags": ["complete", "shipped", "infrastructure"],
       "agents": ["Grok", "Claude", "Codex"],
-      "desc": "This site. Built autonomously across 3 phases with delegation, Codex QA, and post-delivery fixes. Now in maintenance mode with live data refresh + <20min update ritual.",
+      "desc": "This site. Built autonomously across 3 phases. Maintenance mode with live data refresh + update ritual.",
       "link": "experiments.html#chain-visualizer"
     },
     {
@@ -59,7 +69,7 @@
       "status": "active",
       "tags": ["active", "experiment"],
       "agents": ["Claude"],
-      "desc": "40 neural-net agents evolved by a genetic algorithm, entirely in browser. No API cost. Competition mechanics: winners grow, laggards die.",
+      "desc": "40 neural-net agents evolved by a genetic algorithm, entirely in browser. No API cost.",
       "link": "game.html"
     },
     {
@@ -67,9 +77,9 @@
       "name": "tax-autofill",
       "type": "project",
       "status": "prototype",
-      "tags": ["prototype"],
+      "tags": ["prototype", "seasonal"],
       "agents": ["Claude"],
-      "desc": "Python pipeline to auto-fill a 1040 workbook from tax documents. Built in a weekend. Works.",
+      "desc": "Seasonal prototype: auto-fill a 1040 workbook from tax documents with human review gates. Next use: next filing season.",
       "link": "projects.html#tax-autofill"
     },
     {
@@ -79,18 +89,8 @@
       "status": "active",
       "tags": ["active", "infrastructure"],
       "agents": ["Claude", "Hermes"],
-      "desc": "Weekly automated health checks for the Obsidian knowledge vault. Detects broken wikilinks, orphaned notes, frontmatter drift, and book summary gaps. Runs Sunday mornings via Hermes cron.",
+      "desc": "Weekly automated health checks for the Obsidian knowledge vault. Runs Sunday mornings via Hermes cron.",
       "link": "projects.html#vault-maintenance"
-    },
-    {
-      "id": "gene-toolbox",
-      "name": "gene-toolbox",
-      "type": "project",
-      "status": "scaffolded",
-      "tags": ["prototype"],
-      "agents": ["Claude"],
-      "desc": "Personal utility scripts. Scaffolded. New utilities get added when recurring friction appears.",
-      "link": "projects.html#gene-toolbox"
     },
     {
       "id": "chain-visualizer",
@@ -99,7 +99,7 @@
       "status": "active",
       "tags": ["active", "experiment"],
       "agents": ["Claude", "Codex"],
-      "desc": "SVG interactive visualization of agent delegation chains. Built across Phase 1 and Phase 2.",
+      "desc": "SVG interactive visualization of agent delegation chains.",
       "link": "experiments.html#chain-visualizer"
     },
     {
