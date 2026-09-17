@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-27",
+  "updated": "2026-09-17",
   "projects": [
     {
       "id": "savewisdom",
@@ -8,7 +8,7 @@
       "status": "production",
       "tags": ["production", "active"],
       "agents": ["Claude", "Hermes"],
-      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. 156+ answers archived. Running live every morning.",
+      "desc": "Daily reflection coach via Telegram. One stoic prompt per day. 173 answers archived as of 2026-09-16. Kept running every morning after Hermes was retired.",
       "link": "projects.html#savewisdom"
     },
     {
@@ -18,7 +18,7 @@
       "status": "production",
       "tags": ["production", "active", "fitness"],
       "agents": ["Claude", "Codex", "Hermes"],
-      "desc": "Telegram-first fitness logging for meals, workouts, body weight, and macros. Live 2,900-calorie plan. InBody checkpoint 1 imported 2026-08-10.",
+      "desc": "Telegram-first fitness logging for meals, workouts, body weight, and macros. Live 2,900-calorie plan. InBody checkpoints on 2026-08-10 and 2026-09-07. Still logging daily.",
       "link": "projects.html#fitness-tracker"
     },
     {
@@ -28,9 +28,19 @@
       "status": "complete",
       "tags": ["complete", "shipped", "writing"],
       "agents": ["Grok", "Claude", "Hermes"],
-      "desc": "Published short book about choosing the right standard. Writing loop closed. Audiobook later, if ever.",
+      "desc": "Published short book about choosing the right standard. Writing loop closed. Audiobook blocked on Amazon's invite-only virtual voice beta.",
       "link": "projects.html#enough",
       "amazon": "https://a.co/d/0ggR9za4"
+    },
+    {
+      "id": "book-derivatives",
+      "name": "Book derivatives",
+      "type": "experiment",
+      "status": "active",
+      "tags": ["active", "experiment", "writing"],
+      "agents": ["Claude", "Codex"],
+      "desc": "Can agents produce sellable follow-ons to a published book? A 30-day companion workbook and a second-book draft were built on 2026-09-16 from the manuscript, 400 books of highlights, and the SaveWisdom archive. Editing and publishing stay with me.",
+      "link": "projects.html#book-derivatives"
     },
     {
       "id": "agent-brain",
@@ -39,17 +49,17 @@
       "status": "active",
       "tags": ["active", "infrastructure"],
       "agents": ["Grok", "Claude", "Codex", "Hermes"],
-      "desc": "Shared coordination repo for all four AI agents. Handoffs, chain registry, watcher, decisions. Private by design.",
+      "desc": "Shared coordination repo for the agents. Handoffs, chain registry, watcher, decisions. Hermes retired Sep 2026; Grok, Claude Code, and Codex remain. Private by design.",
       "link": "projects.html#agent-brain"
     },
     {
       "id": "quant",
       "name": "quant",
       "type": "project",
-      "status": "active",
-      "tags": ["active", "trading"],
+      "status": "halted",
+      "tags": ["halted", "trading"],
       "agents": ["Claude", "Hermes"],
-      "desc": "Wheel-primary paper trading system. Trend stacks shelved (ADR 0006). Net-P&L journaling and checkpoint ops.",
+      "desc": "Wheel-strategy paper trading, halted 2026-06-24 and set down after the One-Day Reset. Trend stacks were shelved earlier (ADR 0006). Code kept, schedulers removed.",
       "link": "projects.html#quant"
     },
     {
@@ -59,7 +69,7 @@
       "status": "complete",
       "tags": ["complete", "shipped", "infrastructure"],
       "agents": ["Grok", "Claude", "Codex"],
-      "desc": "This site. Built autonomously across 3 phases. Maintenance mode with live data refresh + update ritual.",
+      "desc": "This site. Built autonomously across 3 phases. Maintenance mode with a curated chain refresh, a deterministic site check, and an update ritual.",
       "link": "experiments.html#chain-visualizer"
     },
     {
@@ -86,30 +96,30 @@
       "id": "vault-maintenance",
       "name": "vault-maintenance",
       "type": "project",
-      "status": "active",
-      "tags": ["active", "infrastructure"],
+      "status": "paused",
+      "tags": ["paused", "infrastructure"],
       "agents": ["Claude", "Hermes"],
-      "desc": "Weekly automated health checks for the Obsidian knowledge vault. Runs Sunday mornings via Hermes cron.",
+      "desc": "Weekly automated health checks for the Obsidian knowledge vault. Ran Sunday mornings on a Hermes cron; last report 2026-08-23. Re-hosting the job is an open loop.",
       "link": "projects.html#vault-maintenance"
     },
     {
       "id": "chain-visualizer",
       "name": "Chain Visualizer",
       "type": "experiment",
-      "status": "active",
-      "tags": ["active", "experiment"],
+      "status": "complete",
+      "tags": ["complete", "shipped", "experiment"],
       "agents": ["Claude", "Codex"],
-      "desc": "SVG interactive visualization of agent delegation chains.",
+      "desc": "SVG interactive visualization of agent delegation chains, fed by a curated snapshot of the real registry.",
       "link": "experiments.html#chain-visualizer"
     },
     {
       "id": "autonomous-loop",
       "name": "Autonomous delegation loop",
       "type": "experiment",
-      "status": "active",
-      "tags": ["active", "experiment"],
+      "status": "complete",
+      "tags": ["complete", "experiment"],
       "agents": ["Grok", "Claude", "Codex", "Hermes"],
-      "desc": "Full Grok→Claude→Codex→Grok loop with no human stitching. Single-chain case proven May 2026.",
+      "desc": "Grok→Claude→Codex→Grok loop with no human stitching. Single chain proven May 2026; a fully unattended Grok→Claude→Grok→Hermes chain succeeded 2026-08-09. Watcher dormant since Hermes retired.",
       "link": "experiments.html#autonomy"
     }
   ]

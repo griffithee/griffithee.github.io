@@ -12,7 +12,10 @@
   var STATUS_TAG_CLASS = {
     production: 'tag-green',
     active: 'tag-blue',
+    complete: 'tag-green',
     prototype: 'tag-orange',
+    paused: 'tag-orange',
+    halted: 'tag-gray',
     scaffolded: 'tag-gray',
   };
 

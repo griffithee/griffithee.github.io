@@ -6,7 +6,7 @@
       "from": "Grok",
       "to": "Claude Code",
       "description": "Build Phase 1 of Personal Website (griffithee.github.io)",
-      "status": "delegating",
+      "status": "closed",
       "registered": "2026-05-31T01:35:40Z",
       "delegations": [
         {
@@ -51,16 +51,6 @@
       "delegations": []
     },
     {
-      "id": "2026-05-31-from-grok-to-claude-code-galaga-phase-1-backup",
-      "date": "2026-05-31",
-      "from": "Grok",
-      "to": "Claude Code",
-      "description": "Backup / Escalation — Galaga Phase 1 (if Codex is Limited)",
-      "status": "dispatched",
-      "registered": "2026-05-31T14:45:23Z",
-      "delegations": []
-    },
-    {
       "id": "2026-05-31-from-grok-to-claude-code-personal-website-phase-3-qa-escalation",
       "date": "2026-05-31",
       "from": "Grok",
@@ -71,12 +61,22 @@
       "delegations": []
     },
     {
+      "id": "2026-05-31-from-grok-to-claude-code-galaga-phase-1-backup",
+      "date": "2026-05-31",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "Backup / Escalation — Galaga Phase 1 (if Codex is Limited)",
+      "status": "closed",
+      "registered": "2026-05-31T14:45:23Z",
+      "delegations": []
+    },
+    {
       "id": "2026-05-31-from-grok-to-claude-code-galaga-phase-1-activation",
       "date": "2026-05-31",
       "from": "Grok",
       "to": "Claude Code",
       "description": "Activation: Take Over Galaga Phase 1 from Codex (Limit Escalation)",
-      "status": "dispatched",
+      "status": "closed",
       "registered": "2026-06-01T14:05:56Z",
       "delegations": []
     },
@@ -86,8 +86,48 @@
       "from": "Grok",
       "to": "Claude Code",
       "description": "Galaga Phase 1 Playtest Session",
-      "status": "dispatched",
+      "status": "closed",
       "registered": "2026-06-01T14:05:56Z",
+      "delegations": []
+    },
+    {
+      "id": "2026-07-09-from-hermes-to-claude-code-review-day-1830",
+      "date": "2026-07-09",
+      "from": "Hermes",
+      "to": "Claude Code",
+      "description": "Monthly Review Day — run /review-day",
+      "status": "closed",
+      "registered": "2026-07-10T01:16:05Z",
+      "delegations": []
+    },
+    {
+      "id": "2026-08-09-from-grok-to-claude-code-e2e-autonomy-chain",
+      "date": "2026-08-09",
+      "from": "Grok",
+      "to": "Claude Code",
+      "description": "E2E autonomy chain test — Step 1 (Claude)",
+      "status": "closed",
+      "registered": "2026-08-10T03:01:41Z",
+      "delegations": []
+    },
+    {
+      "id": "2026-08-28-from-hermes-to-claude-code-review-day-0900",
+      "date": "2026-08-28",
+      "from": "Hermes",
+      "to": "Claude Code",
+      "description": "Monthly Review Day — run /review-day",
+      "status": "closed",
+      "registered": "2026-08-28T14:15:27Z",
+      "delegations": []
+    },
+    {
+      "id": "2026-08-29-from-hermes-to-claude-code-skills-upstream-review-0900",
+      "date": "2026-08-29",
+      "from": "Hermes",
+      "to": "Claude Code",
+      "description": "Skills Upstream Review — upstream repos changed",
+      "status": "closed",
+      "registered": "2026-08-29T14:00:50Z",
       "delegations": []
     }
   ],
@@ -121,6 +161,6 @@
       "blocked": "Stuck, needs input",
       "limit_hit": "Session limit hit, will retry"
     },
-    "snapshot": "2026-06-28"
+    "snapshot": "2026-09-17"
   }
 }

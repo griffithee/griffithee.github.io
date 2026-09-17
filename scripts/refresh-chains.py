@@ -6,6 +6,12 @@ Refresh data/chains.json from agent-brain/watcher/chain-registry.json.
 Usage (from site root):
     python3 scripts/refresh-chains.py
     python3 scripts/refresh-chains.py --registry /path/to/chain-registry.json
+    python3 scripts/refresh-chains.py --all          # ignore "public" curation flags
+    python3 scripts/refresh-chains.py --output /tmp/chains.json
+
+Curation: the watcher registers every dispatch, so the registry is not curated
+by membership. Roots carrying "public": true are the curated set; only they are
+published. If no root has the flag, every root is published with a warning.
 
 The script reads the live chain registry, enriches entries by parsing handoff
 filenames (and file content when available), then writes data/chains.json in
@@ -192,42 +198,36 @@ def build_description(parsed, handoffs_dir, fname):
     return desc if desc else slug_to_description(parsed)
 
 
-def main():
-    registry_path = REGISTRY_DEFAULT
-    handoffs_dir = HANDOFFS_DEFAULT
+def select_roots(roots_map, include_all=False):
+    """Return the roots to publish: flagged "public": true, or all when none are flagged."""
+    if include_all:
+        return roots_map
+    curated = {
+        k: v for k, v in roots_map.items()
+        if isinstance(v, dict) and v.get("public") is True
+    }
+    if curated:
+        return curated
+    warn('No root carries "public": true; publishing every root. '
+         'Flag curated roots in the registry (see watcher/README.md).')
+    return roots_map
 
-    args = sys.argv[1:]
-    for i, arg in enumerate(args):
-        if arg == "--registry" and i + 1 < len(args):
-            registry_path = args[i + 1]
-        elif arg == "--handoffs" and i + 1 < len(args):
-            handoffs_dir = args[i + 1]
 
-    if not os.path.exists(registry_path):
-        print(f"ERROR: Registry not found at {registry_path}", file=sys.stderr)
-        print("Pass --registry /path/to/chain-registry.json to override.", file=sys.stderr)
-        sys.exit(1)
-
-    registry = load_json_file(registry_path, "chain registry")
-    if registry is None:
-        sys.exit(1)
+def build_output(registry, handoffs_dir, include_all=False, snapshot_date=None):
+    """Turn a parsed registry into the chains.json structure. Raises ValueError on bad shape."""
     if not isinstance(registry, dict):
-        print("ERROR: Chain registry must be a JSON object.", file=sys.stderr)
-        sys.exit(1)
-
+        raise ValueError("Chain registry must be a JSON object.")
     chains_map = registry.get("chains", {})
     roots_map = registry.get("roots", {})
     if not isinstance(chains_map, dict):
-        print("ERROR: Chain registry 'chains' must be a JSON object.", file=sys.stderr)
-        sys.exit(1)
+        raise ValueError("Chain registry 'chains' must be a JSON object.")
     if not isinstance(roots_map, dict):
-        print("ERROR: Chain registry 'roots' must be a JSON object.", file=sys.stderr)
-        sys.exit(1)
+        raise ValueError("Chain registry 'roots' must be a JSON object.")
 
-    seen_delegations = set()
+    seen_delegations = set()  # registry-wide: a delegation belongs to the first root that lists it
     roots_out = []
 
-    for root_fname, root_data in roots_map.items():
+    for root_fname, root_data in select_roots(roots_map, include_all).items():
         if not isinstance(root_data, dict):
             warn(f"Skipping malformed root entry for {root_fname!r}")
             continue
@@ -281,18 +281,56 @@ def main():
             "delegations": delegations,
         })
 
-    snapshot_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    roots_out.sort(key=lambda r: (r["date"], r["registered"], r["id"]))
+
     meta = dict(META)
-    meta["snapshot"] = snapshot_date
+    meta["snapshot"] = snapshot_date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return {"roots": roots_out, "meta": meta}
 
-    output = {"roots": roots_out, "meta": meta}
 
-    os.makedirs(os.path.dirname(OUTPUT) if os.path.dirname(OUTPUT) else ".", exist_ok=True)
-    with open(OUTPUT, "w", encoding="utf-8") as f:
+def parse_args(argv):
+    import argparse
+    ap = argparse.ArgumentParser(description="Refresh data/chains.json from the chain registry.")
+    ap.add_argument("--registry", default=REGISTRY_DEFAULT)
+    ap.add_argument("--handoffs", default=HANDOFFS_DEFAULT)
+    ap.add_argument("--output", default=OUTPUT)
+    ap.add_argument("--all", action="store_true", help='ignore "public" curation flags')
+    ap.add_argument("--allow-empty", action="store_true", help="write the file even when no root survives")
+    return ap.parse_args(argv)
+
+
+def main():
+    args = parse_args(sys.argv[1:])
+
+    if not os.path.exists(args.registry):
+        print(f"ERROR: Registry not found at {args.registry}", file=sys.stderr)
+        print("Pass --registry /path/to/chain-registry.json to override.", file=sys.stderr)
+        sys.exit(1)
+
+    registry = load_json_file(args.registry, "chain registry")
+    if registry is None:
+        sys.exit(1)
+
+    try:
+        output = build_output(registry, args.handoffs, args.all)
+    except ValueError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+    if not output["roots"] and not args.allow_empty:
+        print("ERROR: no publishable root survived; refusing to overwrite the snapshot "
+              "(pass --allow-empty to force).", file=sys.stderr)
+        sys.exit(1)
+
+    out_dir = os.path.dirname(args.output)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    with open(args.output, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
+        f.write("\n")
 
-    print(f"✓ {OUTPUT} updated — {len(roots_out)} root(s) from {registry_path}")
-    print(f"  Snapshot date: {snapshot_date}")
+    print(f"✓ {args.output} updated — {len(output['roots'])} root(s) from {args.registry}")
+    print(f"  Snapshot date: {output['meta']['snapshot']}")
 
 
 if __name__ == "__main__":

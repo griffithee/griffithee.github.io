@@ -73,8 +73,9 @@
         <div class="section-label">Interactive · Live data</div>
         <h2 class="section-title">Agent Delegation Chain Visualizer</h2>
         <p class="section-desc">
-          Each entry below is a real handoff chain from the agent-brain system.
-          Root nodes are Grok→Claude Code dispatches. Delegations are Claude Code→Codex sub-tasks.
+          Each entry below is a real handoff chain from the agent-brain system, curated
+          down to the ones worth showing. Root nodes are dispatches to Claude Code, from Grok
+          or from a Hermes cron tickler. Delegations are Claude Code→Codex sub-tasks.
           Click any row to see details.
         </p>
       </div>
@@ -104,8 +105,8 @@
 
       <div style="margin-top:var(--space-4);">
         <p style="font-size:0.8rem;color:var(--text-muted);font-family:var(--font-mono);">
-          Data source: agent-brain/watcher/chain-registry.json — static snapshot, updated on deploy.
-          <a href="https://github.com/griffithee/agent-brain" target="_blank" rel="noopener">View the source system →</a>
+          Data source: agent-brain/watcher/chain-registry.json (private repo) — curated static
+          snapshot, regenerated on deploy. Roots flagged public in the registry are the ones shown.
         </p>
       </div>
     </section>
@@ -136,6 +137,19 @@
             capability gaps. Claude Code was capable of closing loops the whole time —
             but early prompt instructions told it to hand off to Codex instead. Once
             that was fixed, it worked.
+          </p>
+          <p>
+            August 9, 2026: the fully unattended version ran. Grok dispatched Claude Code,
+            Claude Code closed its step and opened the next handoff, headless Grok wrote
+            the receipt, Hermes told me on Telegram. Nobody watched it happen. Between
+            July and August the same machinery ran nine weekly skills reviews and two
+            monthly review days from cron ticklers.
+          </p>
+          <p>
+            September 2026: I retired Hermes. The watcher and its crons went quiet with it.
+            The pattern survives (handoff files, registry, completion files), but dispatch
+            now starts from a Claude Code or Grok session instead of a cron tick. Which
+            jobs get re-hosted, and where, is the current open question.
           </p>
         </div>
         <div>
@@ -170,10 +184,10 @@
               <div class="timeline-title">Living artifact pattern</div>
               <div class="timeline-desc">Phase 3: chains.json refresh script, filterable projects browser, update ritual. Site maintainable in &lt;20 min without re-engaging the full agent system.</div>
             </div>
-            <div class="timeline-item active">
-              <div class="timeline-date">Jun 10, 2026 — now</div>
-              <div class="timeline-title">Neuroevolution arena</div>
-              <div class="timeline-desc">Galaga replaced with a zero-cost AI experiment: 40 neural-net agents evolved by genetic algorithm, competition mechanics, interactive food placement.</div>
+            <div class="timeline-item done">
+              <div class="timeline-date">Jun 10, 2026</div>
+              <div class="timeline-title">Neuroevolution arena ships</div>
+              <div class="timeline-desc">Galaga replaced with a zero-cost AI experiment: 40 neural-net agents evolved by genetic algorithm, competition mechanics, interactive food placement. Still live on the Game page.</div>
             </div>
             <div class="timeline-item done">
               <div class="timeline-date">Jun 10, 2026</div>
@@ -181,19 +195,49 @@
               <div class="timeline-desc">Claude Code builds a weekly automated health check for the 1,700+ file knowledge vault. Four deterministic checks: broken wikilinks, orphaned notes, frontmatter drift, book summary gaps. Weekly Hermes cron, zero manual work.</div>
             </div>
             <div class="timeline-item done">
-              <div class="timeline-date">Aug 12, 2026</div>
-              <div class="timeline-title">SaveWisdom archive at 143</div>
-              <div class="timeline-desc">143 reflection questions answered and archived across two stores. Dual-save gaps from #104, #108, and #140 were restored.</div>
+              <div class="timeline-date">Jun 24, 2026</div>
+              <div class="timeline-title">Scoreboard projects set down</div>
+              <div class="timeline-desc">Wheel paper trading halted. A one-day personal reset put the net-worth projects down in favor of the book, SaveWisdom, and living by an "enough" standard.</div>
             </div>
             <div class="timeline-item done">
-              <div class="timeline-date">Aug 10, 2026</div>
-              <div class="timeline-title">fitness-tracker InBody checkpoint</div>
-              <div class="timeline-desc">Live 2,900-calorie plan. August 10 InBody scan is in the tracker. Next checkpoint is September.</div>
+              <div class="timeline-date">Jul 9, 2026</div>
+              <div class="timeline-title">First automated review day</div>
+              <div class="timeline-desc">A Hermes tickler queued a review-day handoff; the watcher dispatched Claude Code to run a portfolio-wide code review with no human in the loop. Repeated Aug 28.</div>
             </div>
             <div class="timeline-item done">
-              <div class="timeline-date">Aug 6-12, 2026</div>
+              <div class="timeline-date">Jul 11 – Aug 29, 2026</div>
+              <div class="timeline-title">Weekly skills upstream review on cron</div>
+              <div class="timeline-desc">Saturday tickler → handoff → autonomous review of three upstream skill repos, including folding changes into Grok-side ports. Nine runs, all closed.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">Aug 6–12, 2026</div>
               <div class="timeline-title">No Longer Average published</div>
-              <div class="timeline-desc">Short book shipped on Amazon. <a href="https://a.co/d/0ggR9za4" target="_blank" rel="noopener">Buy here</a>. Writing and production loop closed. Audiobook later, if ever.</div>
+              <div class="timeline-desc">Short book shipped on Amazon. <a href="https://a.co/d/0ggR9za4" target="_blank" rel="noopener">Buy here</a>. Writing and production loop closed.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">Aug 9, 2026</div>
+              <div class="timeline-title">Unattended chain succeeds end to end</div>
+              <div class="timeline-desc">Grok → Claude Code → Grok → Hermes completes with nobody watching. Receipt written, Telegram delivered. The chain is in the visualizer above.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">Aug 10 &amp; Sep 7, 2026</div>
+              <div class="timeline-title">fitness-tracker InBody checkpoints</div>
+              <div class="timeline-desc">Live 2,900-calorie plan. Two standardized InBody scans in the tracker. Next checkpoint October 11.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">Sep 2026</div>
+              <div class="timeline-title">Hermes retired</div>
+              <div class="timeline-desc">The Telegram gateway, its nine crons, and the handoff watcher came down. Stack now: Claude Code, Codex, Grok, Cursor, and local Ollama models for free grunt work. SaveWisdom and fitness logging kept running.</div>
+            </div>
+            <div class="timeline-item done">
+              <div class="timeline-date">Sep 16, 2026</div>
+              <div class="timeline-title">SaveWisdom archive at 173</div>
+              <div class="timeline-desc">173 reflection questions answered and archived, still one per morning.</div>
+            </div>
+            <div class="timeline-item active">
+              <div class="timeline-date">Sep 16, 2026 — now</div>
+              <div class="timeline-title">Book derivatives experiment</div>
+              <div class="timeline-desc">Can agents produce sellable follow-ons to a published book with my existing material as the moat? A 30-day companion workbook and a second-book draft exist, quote-verified against sources. Editing and publishing are mine.</div>
             </div>
           </div>
         </div>
@@ -258,9 +302,19 @@
         <article class="card">
           <div class="card-title" style="margin-bottom:var(--space-3);">Agent output is not the same as agent context</div>
           <p class="card-desc">
-            Hermes can send a Telegram message about what an agent did, but the agent
-            that produced the message doesn't have Hermes's delivery context and vice versa.
+            Hermes could send a Telegram message about what an agent did, but the agent
+            that produced the message didn't have Hermes's delivery context and vice versa.
             The coordination layer (handoffs, registry) is the shared ground truth.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-title" style="margin-bottom:var(--space-3);">An automation is alive only when you watched it run</div>
+          <p class="card-desc">
+            When Hermes came down, nine documented crons went with it and nothing complained.
+            The registry still showed 22 chains as "dispatched" that had closed weeks earlier.
+            Creation is not verification. Now every job needs an observed live run, and the
+            site check fails if the numbers on this page drift from the data.
           </p>
         </article>
       </div>
@@ -305,6 +359,17 @@
             The agents are good at executing handoffs. They're less good at knowing when
             a handoff's intent has shifted since it was written. How do you route that
             kind of ambiguity back to the user without blocking the whole chain?
+          </p>
+          <span class="tag tag-orange">open</span>
+        </article>
+
+        <article class="card" style="border-style:dashed;">
+          <div class="card-title" style="margin-bottom:var(--space-3);">What replaces the ambient agent?</div>
+          <p class="card-desc">
+            Hermes owned the Telegram capture, the crons, and the watcher. With it gone,
+            which layer owns scheduling and capture: Grok Bot routines, Claude Code scheduled
+            runs, or plain systemd timers? The second-use rule says wait for a real need
+            before rebuilding it.
           </p>
           <span class="tag tag-orange">open</span>
         </article>

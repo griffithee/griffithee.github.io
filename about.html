@@ -51,7 +51,8 @@
             with something useful.
           </p>
           <p>
-            The projects here are things I use. SaveWisdom runs every morning.
+            The projects here are things I use. SaveWisdom runs every morning
+            (173 answers archived as of September 2026).
             fitness-tracker is live through Telegram. <a href="https://a.co/d/0ggR9za4" target="_blank" rel="noopener">No Longer Average</a>
             is published on Amazon. agent-brain runs the coordination layer
             this site was built with.
@@ -84,6 +85,13 @@
             pushed to GitHub Pages — without me touching a keyboard for the
             implementation. Phases 2 and 3 closed the same way.
           </p>
+          <p>
+            In August 2026 a fully unattended chain (Grok → Claude Code → Grok → Hermes)
+            ran end to end and reported back on Telegram. In September 2026 I retired
+            Hermes, the gateway that ran the crons and the watcher. The handoff pattern
+            still works; it is now driven from Claude Code and Grok sessions directly,
+            and the recurring jobs are being re-hosted one at a time.
+          </p>
           <div class="callout" style="margin-top:var(--space-4);">
             <div class="callout-label">The chain registry</div>
             <p style="margin-bottom:0;font-size:0.875rem;">
@@ -98,13 +106,12 @@
           <div class="callout" style="margin-top:var(--space-6);">
             <div class="callout-label">Current focus</div>
             <p style="margin-bottom:var(--space-2);">
-              Learning to work effectively with AI agents as a system — what makes
-              them actually useful vs. impressive-looking. Mostly through building
-              things and watching what breaks.
+              Three things: capturing wisdom daily through SaveWisdom, the book and
+              what follows it, and living by the "enough" standard day to day.
             </p>
             <p style="margin-bottom:0;">
-              Growing and developing, personally and professionally.
-              Using the available tech to increase quality of life in concrete, measurable ways.
+              On the tooling side: fewer agents, more verification. An automation
+              counts as alive only when I have watched it run.
             </p>
           </div>
         </div>
@@ -137,9 +144,12 @@
               <div>
                 <div style="display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-1);">
                   <span class="agent-badge agent-hermes">Hermes</span>
-                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">telegram gateway</span>
+                  <span style="font-size:0.75rem;color:var(--text-muted);font-family:var(--font-mono);">telegram gateway · retired sep 2026</span>
                 </div>
-                <p style="font-size:0.82rem;margin:0;">Captures ideas, delivers prompts, alerts on completions. The ambient agent.</p>
+                <p style="font-size:0.82rem;margin:0;">Captured ideas, delivered prompts, ran the crons, alerted on completions from May to September 2026. The ambient agent.</p>
+              </div>
+              <div>
+                <p style="font-size:0.82rem;margin:0;color:var(--text-secondary);">Also in the kit: Cursor for editor-side work, local Ollama models for free grunt work, and Grok Bot for scheduled jobs.</p>
               </div>
             </div>
           </div>

@@ -1,1 +1,3 @@
 .gbrain-source
+__pycache__/
+.pytest_cache/

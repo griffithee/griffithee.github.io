@@ -64,8 +64,9 @@
           </p>
           <p>
             The prompts are grounded in stoic philosophy and modern behavior change
-            research. Claude generates them. Hermes (my Telegram gateway agent) delivers
-            them. I respond when I want to, ignore them when I don't, and the system
+            research. Claude generates them. Hermes, my Telegram gateway agent, delivered
+            them until it was retired in September 2026; the daily job kept running.
+            I respond when I want to, ignore them when I don't, and the system
             doesn't nag.
           </p>
           <p>
@@ -92,11 +93,11 @@
               <span class="detail-label">generation</span>
               <span class="detail-value">Claude (Anthropic SDK)</span>
               <span class="detail-label">scheduling</span>
-              <span class="detail-value">Hermes cron / watcher</span>
+              <span class="detail-value">daily cron (Hermes until Sep 2026)</span>
               <span class="detail-label">runtime</span>
               <span class="detail-value">Python, WSL</span>
               <span class="detail-label">archive</span>
-              <span class="detail-value">156+ answers archived</span>
+              <span class="detail-value">173 answers archived (2026-09-16)</span>
               <span class="detail-label">status</span>
               <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>running daily</span>
             </div>
@@ -128,18 +129,19 @@
         <div>
           <p>
             fitness-tracker is a Telegram-first logging system for meals, workouts,
-            body weight, macro targets, and daily accountability. The core scripts,
-            Hermes skill, and cron jobs are deployed and live.
+            body weight, macro targets, and daily accountability. The core scripts
+            are deployed and logging is live.
           </p>
           <p>
             The point is low-friction capture: "log chicken 150g rice 200g", "bjj",
-            "crossfit 14:32 rx", or "weight 261.5" through Aegis. Hermes handles the
+            "crossfit 14:32 rx", or "weight 261.5" over Telegram. The bot handled
             command routing, a noon tickle if nothing has been logged, and an 8pm
-            nightly report comparing plan, actuals, and tomorrow.
+            nightly report comparing plan, actuals, and tomorrow. Hermes ran that
+            front end until September 2026; logging continues daily.
           </p>
           <p>
-            The live plan is 2,900 calories with high protein. The August 10 InBody
-            checkpoint is in the tracker. Next scan is scheduled for September.
+            The live plan is 2,900 calories with high protein. The August 10 and
+            September 7 InBody checkpoints are in the tracker. Next scan is October 11.
           </p>
           <div style="margin-top:var(--space-4);">
             <div class="callout">
@@ -158,15 +160,15 @@
               <span class="detail-label">logging</span>
               <span class="detail-value">food, workouts, weight</span>
               <span class="detail-label">delivery</span>
-              <span class="detail-value">Telegram via Aegis</span>
+              <span class="detail-value">Telegram</span>
               <span class="detail-label">automation</span>
-              <span class="detail-value">noon tickle + 8pm report</span>
+              <span class="detail-value">noon tickle + 8pm report (Hermes era)</span>
               <span class="detail-label">targets</span>
               <span class="detail-value">2,900 cal · P220/C250/F113</span>
               <span class="detail-label">InBody</span>
-              <span class="detail-value">checkpoint 1 on 2026-08-10</span>
+              <span class="detail-value">checkpoints 2026-08-10, 2026-09-07</span>
               <span class="detail-label">status</span>
-              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>scripts and crons live</span>
+              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>logging daily</span>
             </div>
           </div>
         </div>
@@ -205,7 +207,9 @@
           </p>
           <p>
             The manuscript is finished and live on Amazon. Agents helped with structure,
-            memory, and production. The writing loop is closed. Audiobook is later, if ever.
+            memory, and production. The writing loop is closed. The audiobook is blocked
+            on Amazon's invite-only virtual voice beta. What comes next is the
+            <a href="#book-derivatives">book derivatives experiment</a> below.
           </p>
           <p style="margin-top:var(--space-4);">
             <a href="https://a.co/d/0ggR9za4" class="btn btn-primary" target="_blank" rel="noopener">Buy on Amazon →</a>
@@ -215,8 +219,8 @@
               <div class="callout-label">The autonomy angle</div>
               <p style="margin-bottom:0;font-size:0.875rem;">
                 Grok helped shape the arc, Claude locked the structure and fragment map,
-                and Hermes keeps a light safety net available. The agents handle logistics
-                and memory so I can focus on the actual hard part — telling the truth.
+                and Hermes kept a light safety net available. The agents handled logistics
+                and memory so I could focus on the actual hard part — telling the truth.
               </p>
             </div>
           </div>
@@ -267,8 +271,8 @@
         <div>
           <p>
             agent-brain is the shared coordination repo for the whole AI agent system.
-            It's a git repo that all four agents (Hermes, Grok, Claude Code, Codex)
-            read and write — the shared working memory.
+            It's a git repo that the agents (Grok, Claude Code, Codex, and Hermes until
+            September 2026) read and write — the shared working memory.
           </p>
           <p>
             The core mechanism is handoffs: structured files that route work between
@@ -300,7 +304,7 @@
               </div>
               <div style="display:flex;align-items:center;gap:var(--space-3);">
                 <span class="agent-badge agent-hermes">Hermes</span>
-                <span style="font-size:0.82rem;color:var(--text-secondary);">Telegram gateway, capture, reminders</span>
+                <span style="font-size:0.82rem;color:var(--text-secondary);">Telegram gateway, capture, reminders (retired Sep 2026)</span>
               </div>
             </div>
           </div>
@@ -314,13 +318,13 @@
     <section class="section" id="quant">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;margin-bottom:var(--space-6);">
         <div>
-          <div class="section-label">Trading · Active Build</div>
+          <div class="section-label">Trading · Halted</div>
           <h2 class="section-title">quant</h2>
           <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-top:var(--space-2);">
             <span class="agent-badge agent-claude">Claude</span>
             <span class="agent-badge agent-hermes">Hermes</span>
             <span class="tag tag-gray">Python</span>
-            <span class="tag tag-blue">active</span>
+            <span class="tag tag-gray">halted</span>
           </div>
         </div>
       </div>
@@ -340,18 +344,19 @@
             same test — premium income is the return, not price prediction.
           </p>
           <p>
-            Hermes sends entry signals and cycle updates via Telegram. The rules
-            live in architecture decision records in the repo. Paper trading first —
-            a verifiable track record before real money moves.
+            Paper trading ran through spring 2026 and was halted on June 24, 2026,
+            when I set the net-worth projects down after a personal reset. The rules
+            and the code stay in the repo. The schedulers are gone. No real money
+            ever moved.
           </p>
           <div style="margin-top:var(--space-4);">
             <div class="callout">
               <div class="callout-label">The discipline angle</div>
               <p style="margin-bottom:0;font-size:0.875rem;">
-                The system's job is to remove discretion. Backtest the rules,
-                paper-trade the rules, then follow the rules — the agents handle
-                scanning and notification so the human only handles judgment calls
-                the rules don't cover.
+                The system's job was to remove discretion: backtest the rules,
+                paper-trade the rules, then follow the rules. The harder discipline
+                turned out to be deciding the project did not deserve the attention,
+                and stopping.
               </p>
             </div>
           </div>
@@ -365,11 +370,11 @@
               <span class="detail-label">shelved</span>
               <span class="detail-value">trend stacks (ADR 0006)</span>
               <span class="detail-label">signals</span>
-              <span class="detail-value">scan + cycle alerts → Telegram</span>
+              <span class="detail-value">scan + cycle alerts → Telegram (off)</span>
               <span class="detail-label">runtime</span>
-              <span class="detail-value">Python, WSL, cron</span>
+              <span class="detail-value">Python, WSL (schedulers removed)</span>
               <span class="detail-label">status</span>
-              <span class="detail-value"><span class="status-dot active" style="margin-right:4px;"></span>paper trading</span>
+              <span class="detail-value"><span class="status-dot closed" style="margin-right:4px;"></span>halted 2026-06-24</span>
             </div>
           </div>
         </div>
@@ -425,17 +430,37 @@
         <article class="card" id="vault-maintenance">
           <div class="card-header">
             <div class="card-title">vault-maintenance</div>
-            <span class="tag tag-blue">active</span>
+            <span class="tag tag-orange">paused</span>
           </div>
           <p class="card-desc">
             Weekly automated health checks for a 1,700+ file Obsidian knowledge vault.
             Detects broken wikilinks, orphaned notes, frontmatter drift, and book summary
-            gaps. Runs Sunday mornings via Hermes cron, reports to the vault itself.
+            gaps. Ran Sunday mornings on a Hermes cron and reported to the vault itself.
+            Last report August 23, 2026. Re-hosting the job is an open loop.
           </p>
           <div class="card-meta">
             <span class="agent-badge agent-claude">Claude</span>
             <span class="agent-badge agent-hermes">Hermes</span>
             <span class="tag tag-gray">Python</span>
+          </div>
+        </article>
+
+        <article class="card" id="book-derivatives">
+          <div class="card-header">
+            <div class="card-title">Book derivatives</div>
+            <span class="tag tag-blue">active</span>
+          </div>
+          <p class="card-desc">
+            An experiment in whether agents can produce sellable follow-ons to a
+            published book. On September 16, 2026 they drafted a 30-day companion
+            workbook and a second book from the manuscript, 400 books of highlights,
+            and the SaveWisdom archive, with a quote verifier gating every chapter.
+            Editing, covers, and publishing stay with me.
+          </p>
+          <div class="card-meta">
+            <span class="agent-badge agent-claude">Claude</span>
+            <span class="agent-badge agent-codex">Codex</span>
+            <span class="tag tag-gray">Writing</span>
           </div>
         </article>
 </div>

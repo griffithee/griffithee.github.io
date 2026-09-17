@@ -24,6 +24,7 @@ const Visualizer = (() => {
     returning: { label: 'returning', dotClass: 'returning', tagClass: 'tag-orange' },
     closed: { label: 'closed', dotClass: 'closed', tagClass: 'tag-gray' },
     blocked: { label: 'blocked', dotClass: 'blocked', tagClass: 'tag-red' },
+    limit_hit: { label: 'limit hit', dotClass: 'returning', tagClass: 'tag-orange' },
   };
 
   const AGENT_CLASS = {
@@ -48,6 +49,7 @@ const Visualizer = (() => {
     returning: 'var(--accent-orange)',
     closed: 'var(--text-muted)',
     blocked: 'var(--accent-orange)',
+    limit_hit: 'var(--accent-orange)',
   };
 
   function escapeHtml(value) {
